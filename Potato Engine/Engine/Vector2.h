@@ -7,34 +7,34 @@ class Vector2 final
 	friend Vector2 operator- (const Vector2& v2);
 	friend Vector2 operator+ (Vector2 lhs, const Vector2& rhs);
 	friend Vector2 operator- (Vector2 lhs, const Vector2& rhs);
-	friend Vector2 operator* (double num, const Vector2& v2);
-	friend Vector2 operator/ (double num, const Vector2& v2);
-	friend Vector2 operator* (Vector2 v2, double num);
-	friend Vector2 operator/ (Vector2 v2, double num);
+	friend Vector2 operator* (float num, const Vector2& v2);
+	friend Vector2 operator/ (float num, const Vector2& v2);
+	friend Vector2 operator* (Vector2 v2, float num);
+	friend Vector2 operator/ (Vector2 v2, float num);
 	friend bool operator== (const Vector2& v1, const Vector2& v2);
 	friend bool operator!= (const Vector2& v1, const Vector2& v2);
 
 public:
 	Vector2();
-	Vector2(double x, double y);
+	Vector2(float x, float y);
 
-	double getLength() const;
-	double getLengthSquared() const;
+	float getLength() const;
+	float getLengthSquared() const;
 	Vector2 normalized() const;
 	void normalize();
-	void rotateCCWDegrees(double degrees);
-	void rotateCCWRadians(double radians);
+	void rotateCCWDegrees(float degrees);
+	void rotateCCWRadians(float radians);
 
 	Vector2& operator+= (const Vector2& rhs);
 	Vector2& operator-= (const Vector2& rhs);
-	Vector2& operator*= (double num);
-	Vector2& operator/= (double num);
+	Vector2& operator*= (float num);
+	Vector2& operator/= (float num);
 
-	static double distance(const Vector2& lhs, const Vector2& rhs);
-	static double dot(const Vector2& lhs, const Vector2& rhs);
+	static float distance(const Vector2& lhs, const Vector2& rhs);
+	static float dot(const Vector2& lhs, const Vector2& rhs);
 
-	double x;
-	double y;
+	float x;
+	float y;
 };
 
 

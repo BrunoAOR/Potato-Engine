@@ -80,9 +80,9 @@ std::vector<Vector2> RectangleCollider::getOuterNormals()
 		unsigned int iNext = (i + 1) % worldCorners.size();
 		Vector2 cornerToCornerVector = worldCorners[iNext] - worldCorners[i];
 		// The following theorem is applied (for CCW rotation):
-		// x2 = x1 * cos(theta) - y1 * sin(theta)
-		// y2 = x1 * sin(theta) + y1 * cos(theta)
-		// But, since cos(90) = 0 and sin(90) = 1, it can be simplified as
+		// x2 = x1 * cosf(theta) - y1 * sinf(theta)
+		// y2 = x1 * sinf(theta) + y1 * cosf(theta)
+		// But, since cosf(90) = 0 and sinf(90) = 1, it can be simplified as
 		// x2 = -y1 and y2 = x1
 		m_outerNormals.push_back(Vector2(-cornerToCornerVector.y, cornerToCornerVector.x));
 	}
@@ -95,7 +95,7 @@ void RectangleCollider::checkCacheValidity()
 {
 	auto transform = gameObject()->transform;
 	Vector2 newPosition = transform->getWorldPosition();
-	double newRotation = transform->getWorldRotation();
+	float newRotation = transform->getWorldRotation();
 	if (m_cachedWorldPosition != newPosition || m_cachedRotation != newRotation)
 	{
 		m_cachedWorldPosition = newPosition;

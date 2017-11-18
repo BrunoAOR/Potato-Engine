@@ -32,8 +32,8 @@ public:
 
 	// Play animations
 	bool playAnimation(std::string animationName);
-	bool playAnimation(std::string animationName, double fps);
-	void setAnimationSpeed(double fps);
+	bool playAnimation(std::string animationName, float fps);
+	void setAnimationSpeed(float fps);
 	bool stopAnimation();
 
 private:

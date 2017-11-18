@@ -8,10 +8,10 @@
 
 namespace EngineUtils
 {
-	void swapValues(double& a, double& b);
-	bool inRange(double value, double a, double b);
-	double getRangesSeparationDistance(double aMin, double aMax, double bMin, double bMax);
-	double clamp(double value, double a, double b);
+	void swapValues(float& a, float& b);
+	bool inRange(float value, float a, float b);
+	float getRangesSeparationDistance(float aMin, float aMax, float bMin, float bMax);
+	float clamp(float value, float a, float b);
 	bool isPointInRect(const Vector2& rectCenter, const Vector2& rectSize, const Vector2& point);
 	Vector2 closestPointOnOrientedRectFromPoint(const Vector2& rectCenter, const Vector2& rectSize, const Vector2& point);
 

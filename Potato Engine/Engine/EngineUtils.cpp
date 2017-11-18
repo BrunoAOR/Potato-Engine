@@ -1,15 +1,15 @@
 #include "EngineUtils.h"
 
 
-void EngineUtils::swapValues(double & a, double & b)
+void EngineUtils::swapValues(float & a, float & b)
 {
-	double temp = a;
+	float temp = a;
 	a = b;
 	b = temp;
 }
 
 
-bool EngineUtils::inRange(double value, double a, double b)
+bool EngineUtils::inRange(float value, float a, float b)
 {
 	if (a > b) {
 		swapValues(a, b);
@@ -18,7 +18,7 @@ bool EngineUtils::inRange(double value, double a, double b)
 }
 
 
-double EngineUtils::getRangesSeparationDistance(double aMin, double aMax, double bMin, double bMax)
+float EngineUtils::getRangesSeparationDistance(float aMin, float aMax, float bMin, float bMax)
 {
 	if (aMin > aMax)
 	{
@@ -34,7 +34,7 @@ double EngineUtils::getRangesSeparationDistance(double aMin, double aMax, double
 }
 
 
-double EngineUtils::clamp(double value, double a, double b)
+float EngineUtils::clamp(float value, float a, float b)
 {
 	if (a == b)
 	{
@@ -57,11 +57,11 @@ double EngineUtils::clamp(double value, double a, double b)
 
 bool EngineUtils::isPointInRect(const Vector2 & rectCenter, const Vector2 & rectSize, const Vector2 & point)
 {
-	double rectMinX = rectCenter.x - rectSize.x / 2;
-	double rectMaxX = rectMinX + rectSize.x;
+	float rectMinX = rectCenter.x - rectSize.x / 2;
+	float rectMaxX = rectMinX + rectSize.x;
 
-	double rectMinY = rectCenter.y - rectSize.y / 2;
-	double rectMaxY = rectMinY + rectSize.y;
+	float rectMinY = rectCenter.y - rectSize.y / 2;
+	float rectMaxY = rectMinY + rectSize.y;
 
 	return inRange(point.x, rectMinX, rectMaxX) && inRange(point.y, rectMinY, rectMaxY);
 }
@@ -69,16 +69,16 @@ bool EngineUtils::isPointInRect(const Vector2 & rectCenter, const Vector2 & rect
 
 Vector2 EngineUtils::closestPointOnOrientedRectFromPoint(const Vector2& rectCenter, const Vector2& rectSize, const Vector2& point)
 {
-	double rectMinX = rectCenter.x - rectSize.x / 2;
-	double rectMaxX = rectMinX + rectSize.x;
+	float rectMinX = rectCenter.x - rectSize.x / 2;
+	float rectMaxX = rectMinX + rectSize.x;
 
 	if (rectMinX > rectMaxX)
 	{
 		swapValues(rectMinX, rectMaxX);
 	}
 
-	double rectMinY = rectCenter.y - rectSize.y / 2;
-	double rectMaxY = rectMinY + rectSize.y;
+	float rectMinY = rectCenter.y - rectSize.y / 2;
+	float rectMaxY = rectMinY + rectSize.y;
 
 	if (rectMinY > rectMaxY)
 	{
@@ -91,10 +91,10 @@ Vector2 EngineUtils::closestPointOnOrientedRectFromPoint(const Vector2& rectCent
 	if (inRange(closestPoint.x, rectMinX, rectMaxX) && inRange(closestPoint.y, rectMinY, rectMaxY))
 	{
 		// Distance to vertical lines is viewed on the x-direction
-		double closestDistanceToVerticals = fmin(closestPoint.x - rectMinX, rectMaxX - closestPoint.x);
+		float closestDistanceToVerticals = fmin(closestPoint.x - rectMinX, rectMaxX - closestPoint.x);
 		
 		// Distance to horizontal lines is viewed on the y-direction
-		double closestDistanceToHorizontals = fmin(closestPoint.y - rectMinY, rectMaxY - closestPoint.y);
+		float closestDistanceToHorizontals = fmin(closestPoint.y - rectMinY, rectMaxY - closestPoint.y);
 
 		if (closestDistanceToVerticals < closestDistanceToHorizontals)
 		{

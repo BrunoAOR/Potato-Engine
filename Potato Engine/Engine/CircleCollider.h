@@ -11,7 +11,7 @@ public:
 	CircleCollider();
 	~CircleCollider();
 
-	double radius;
+	float radius;
 };
 
 

@@ -22,7 +22,7 @@ private:
 	void checkCacheValidity();
 
 	Vector2 m_cachedWorldPosition;
-	double m_cachedRotation;
+	float m_cachedRotation;
 	std::vector<Vector2> m_worldCorners;
 	std::vector<Vector2> m_outerNormals;
 };

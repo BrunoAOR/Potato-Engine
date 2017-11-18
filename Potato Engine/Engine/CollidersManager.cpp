@@ -136,7 +136,7 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl1, Circ
 
 	Vector2 pos2 = circColl2.getWorldPosition();
 
-	double penetrationDistance = circColl1.radius + circColl2.radius - Vector2::distance(pos1, pos2);
+	float penetrationDistance = circColl1.radius + circColl2.radius - Vector2::distance(pos1, pos2);
 
 	if (penetrationDistance > m_minPenetration)
 	{
@@ -176,7 +176,7 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, R
 	auto r2Corners = rectColl2.getWorldCorners();
 
 	// 2. Create variables to store the smallest overlap vector and direction (stored separate to easily compare the length)
-	double minOverlapLength = std::numeric_limits<double>::max();
+	float minOverlapLength = std::numeric_limits<float>::max();
 	Vector2 minOverlapDirection;
 
 	// 3. Now we iterate
@@ -187,16 +187,16 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, R
 
 		// 2. Find the min and max corner projections for r1 and r2
 		// For r1
-		double r1Min = std::numeric_limits<double>::max();
-		double r1Max = std::numeric_limits<double>::lowest();
+		float r1Min = std::numeric_limits<float>::max();
+		float r1Max = std::numeric_limits<float>::lowest();
 		// For r2
-		double r2Min = std::numeric_limits<double>::max();
-		double r2Max = std::numeric_limits<double>::lowest();
+		float r2Min = std::numeric_limits<float>::max();
+		float r2Max = std::numeric_limits<float>::lowest();
 
 		for (int c = 0; c < 4; ++c)
 		{
 			// r1
-			double currentR1Projection = Vector2::dot(r1Corners[c], normalUnitVector);
+			float currentR1Projection = Vector2::dot(r1Corners[c], normalUnitVector);
 			
 			if (currentR1Projection < r1Min)
 			{
@@ -208,7 +208,7 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, R
 			}
 
 			// r2
-			double currentR2Projection = Vector2::dot(r2Corners[c], normalUnitVector);
+			float currentR2Projection = Vector2::dot(r2Corners[c], normalUnitVector);
 
 			if (currentR2Projection < r2Min)
 			{
@@ -221,7 +221,7 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, R
 		}
 
 		// 3. Determine if there is an overlap. If there isn't, early exit and return false
-		double penetrationDistance = -EngineUtils::getRangesSeparationDistance(r1Min, r1Max, r2Min, r2Max);
+		float penetrationDistance = -EngineUtils::getRangesSeparationDistance(r1Min, r1Max, r2Min, r2Max);
 		if (penetrationDistance <= m_minPenetration)
 		{
 			// So, no overlap in this axis
@@ -265,7 +265,7 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl, Recta
 
 	Vector2 closestPointFromPointToRect = EngineUtils::closestPointOnOrientedRectFromPoint(localRectPos, rectColl.size, localCircPos);
 
-	double penetrationDistance = 0;
+	float penetrationDistance = 0;
 	Vector2 penetrationVector;
 	if (EngineUtils::isPointInRect(localRectPos, rectColl.size, localCircPos))
 	{
@@ -281,7 +281,7 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl, Recta
 	penetrationVector *= penetrationDistance;
 	
 	// Now that all calculations are finished, readjust the penetrationVector for world space (rotation)
-	double worldRotOfRectSystem = circTransform->localToWorldRotation(0);
+	float worldRotOfRectSystem = circTransform->localToWorldRotation(0);
 	penetrationVector.rotateCCWDegrees(worldRotOfRectSystem);
 	// and return the circ's parent to its original parent
 	circTransform->setParent(originalCircParent);
@@ -312,7 +312,7 @@ bool CollidersManager::shouldResolveCollision(Reference<Collider> coll1, Referen
 }
 
 
-void CollidersManager::resolveCollision(CircleCollider& circColl1, const Vector2& pos1, CircleCollider& circColl2, const Vector2& pos2, double penetrationDistance)
+void CollidersManager::resolveCollision(CircleCollider& circColl1, const Vector2& pos1, CircleCollider& circColl2, const Vector2& pos2, float penetrationDistance)
 {
 	// First, get the vector to move circColl1 away from circColl2
 	Vector2 moveVector = (pos1 - pos2).normalized() * penetrationDistance;

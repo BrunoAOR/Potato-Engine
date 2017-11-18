@@ -176,7 +176,7 @@ bool SpriteSheet::playAnimation(std::string animationName)
 }
 
 
-bool SpriteSheet::playAnimation(std::string animationName, double fps)
+bool SpriteSheet::playAnimation(std::string animationName, float fps)
 {
 	stopAnimation();
 	if (selectAnimation(animationName) && fps != 0) {
@@ -190,7 +190,7 @@ bool SpriteSheet::playAnimation(std::string animationName, double fps)
 }
 
 
-void SpriteSheet::setAnimationSpeed(double fps)
+void SpriteSheet::setAnimationSpeed(float fps)
 {
 	if (fps == 0)
 	{

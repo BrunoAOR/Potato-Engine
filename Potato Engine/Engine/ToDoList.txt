@@ -1,0 +1,8 @@
+TO DO list:
+
+* Define Layers and z-index for Renderers
+
+* Implement a Prefabs system. It could work through factory methods that could be written to create
+	and setup a certain GameObject and then return a Reference<GameObject> just like the usual GameObject::createNew() function does.
+
+* Review all engine classes and implement (or delete) copy constructors/assignments and move constructors/assignments

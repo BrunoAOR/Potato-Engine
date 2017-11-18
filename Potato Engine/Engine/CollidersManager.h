@@ -34,13 +34,13 @@ private:
 	bool checkAndResolveCollision(RectangleCollider& rectColl, CircleCollider& circColl, bool shouldResolve);
 
 	bool shouldResolveCollision(Reference<Collider> coll1, Reference<Collider> coll2);
-	void resolveCollision(CircleCollider& circColl1, const Vector2& pos1, CircleCollider& circColl2, const Vector2& pos2, double penetrationDistance);
+	void resolveCollision(CircleCollider& circColl1, const Vector2& pos1, CircleCollider& circColl2, const Vector2& pos2, float penetrationDistance);
 	void resolveCollision(RectangleCollider& rectColl1, RectangleCollider& rectColl2, Vector2& penetrationVector);
 	void resolveCollision(CircleCollider& circColl, RectangleCollider& rectColl, const Vector2& penetrationVector);
 
 	void informCollision(Reference<Collider> coll1, Reference<Collider> coll2);
 
-	const double m_minPenetration = 0.01;
+	const float m_minPenetration = 0.01f;
 
 	TriggerCollisionCache triggerCollisionCache;
 };

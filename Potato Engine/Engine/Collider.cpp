@@ -35,7 +35,7 @@ Vector2 Collider::getWorldPosition()
 }
 
 
-double Collider::getWorldRotation()
+float Collider::getWorldRotation()
 {
 	return gameObject()->transform->getWorldRotation();
 }

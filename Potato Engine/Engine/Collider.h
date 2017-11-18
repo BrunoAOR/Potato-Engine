@@ -18,7 +18,7 @@ public:
 
 	Vector2 getLocalPosition();
 	Vector2 getWorldPosition();
-	double getWorldRotation();
+	float getWorldRotation();
 
 	// Callbacks to reroute to Behaviours
 	void onCollision(CollisionInfo info);

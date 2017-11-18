@@ -22,10 +22,10 @@ public:
 	void setWorldPosition(const Vector2& position);
 
 	// Rotation
-	double getLocalRotation() const;
-	double getWorldRotation() const;
-	void setLocalRotation(double rotation);
-	void setWorldRotation(double rotation);
+	float getLocalRotation() const;
+	float getWorldRotation() const;
+	void setLocalRotation(float rotation);
+	void setWorldRotation(float rotation);
 
 	// Scale
 	Vector2 getLocalScale() const;
@@ -36,8 +36,8 @@ public:
 	// Helper methods
 	Vector2 localToWorldPosition(const Vector2& localPosition) const;
 	Vector2 worldToLocalPosition(const Vector2& worldPosition) const;
-	double localToWorldRotation(double localRotation) const;
-	double worldToLocalRotation(double worldRotation) const;
+	float localToWorldRotation(float localRotation) const;
+	float worldToLocalRotation(float worldRotation) const;
 	Vector2 localToWorldScale(const Vector2& localScale) const;
 	Vector2 worldToLocalScale(const Vector2& worldScale) const;
 
@@ -61,11 +61,11 @@ private:
 	bool isActive();
 
 	Vector2 m_localPosition;
-	double m_localRotation;
+	float m_localRotation;
 	Vector2 m_localScale;
 	
 	Vector2 m_worldPosition;
-	double m_worldRotation;
+	float m_worldRotation;
 	Vector2 m_worldScale;
 
 	// Hierarchy related

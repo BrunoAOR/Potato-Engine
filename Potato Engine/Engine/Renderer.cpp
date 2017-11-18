@@ -66,7 +66,7 @@ void Renderer::renderMain(SDL_Rect* clip, SDL_RendererFlip flip)
 
 	// Extract info from the transform
 	Vector2 pos = gameObject()->transform->getWorldPosition();
-	double rot = gameObject()->transform->getWorldRotation();
+	float rot = gameObject()->transform->getWorldRotation();
 	Vector2 sca = gameObject()->transform->getWorldScale();
 
 	// Correct the position and rotations to simulate a reference system with 0 in the bottom-left,
@@ -78,18 +78,18 @@ void Renderer::renderMain(SDL_Rect* clip, SDL_RendererFlip flip)
 	Vector2 rawSize;
 	if (clip)
 	{
-		rawSize = { (double)clip->w, (double)clip->h };
+		rawSize = { (float)clip->w, (float)clip->h };
 	}
 	else
 	{
-		rawSize = { (double)m_width, (double)m_height };
+		rawSize = { (float)m_width, (float)m_height };
 	}
 
 	// Set the rendering space based on the position and positionPivot
-	double renderQuadX = pos.x - m_positionPivot.x * rawSize.x;
-	double renderQuadY = pos.y - (1 - m_positionPivot.y) * rawSize.y;
-	double renderQuadW = rawSize.x;
-	double renderQuadH = rawSize.y;
+	float renderQuadX = pos.x - m_positionPivot.x * rawSize.x;
+	float renderQuadY = pos.y - (1 - m_positionPivot.y) * rawSize.y;
+	float renderQuadW = rawSize.x;
+	float renderQuadH = rawSize.y;
 
 	// Modify for the gameObject scale and scalePivot
 	SDL_Rect renderQuad = 
