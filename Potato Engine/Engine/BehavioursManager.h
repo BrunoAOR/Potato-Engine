@@ -22,7 +22,7 @@ private:
 	virtual void update() override;
 	virtual bool init() override;
 	virtual void close() override;
-	virtual bool initializeComponent(Reference<Component> component) override;
+	virtual bool initializeComponent(Reference<Component>& component) override;
 };
 
 

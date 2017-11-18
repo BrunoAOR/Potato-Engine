@@ -1,6 +1,8 @@
 #include "Behaviour.h"
 
 #include "ComponentType.h"
+#include "Collider.h"
+#include "CollisionInfo.h"
 
 
 Behaviour::Behaviour()
@@ -27,5 +29,25 @@ void Behaviour::start()
 
 
 void Behaviour::update()
+{
+}
+
+
+void Behaviour::onCollision(CollisionInfo info)
+{
+}
+
+
+void Behaviour::onTriggerEnter(Reference<Collider> other)
+{
+}
+
+
+void Behaviour::onTriggerStay(Reference<Collider> other)
+{
+}
+
+
+void Behaviour::onTriggerExit(Reference<Collider> other)
 {
 }

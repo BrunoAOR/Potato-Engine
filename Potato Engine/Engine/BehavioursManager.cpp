@@ -60,7 +60,7 @@ void BehavioursManager::close()
 }
 
 
-bool BehavioursManager::initializeComponent(Reference<Component> component)
+bool BehavioursManager::initializeComponent(Reference<Component>& component)
 {
 	return true;
 }

@@ -97,7 +97,7 @@ void RenderersManager::close()
 }
 
 
-bool RenderersManager::initializeComponent(Reference<Component> component)
+bool RenderersManager::initializeComponent(Reference<Component>& component)
 {
 	// At this point, we know that component is a Renderer (or a sub-class there-of)
 	if (component)

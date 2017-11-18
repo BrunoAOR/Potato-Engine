@@ -34,6 +34,9 @@
     <Filter Include="Engine\Components\Behaviours">
       <UniqueIdentifier>{970826a2-7f24-40b4-a864-ce381166732b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Components\Colliders">
+      <UniqueIdentifier>{93efe494-1ed1-40d7-a9ec-beaea177817d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -107,6 +110,21 @@
     </ClCompile>
     <ClCompile Include="Engine\SpriteSheet.cpp">
       <Filter>Engine\Components\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider.cpp">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CollidersManager.cpp">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RectangleCollider.cpp">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TriggerCollisionCache.cpp">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CircleCollider.cpp">
+      <Filter>Engine\Components\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +208,24 @@
     </ClInclude>
     <ClInclude Include="Engine\SpriteSheet.h">
       <Filter>Engine\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CircleCollider.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CollidersManager.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CollisionInfo.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\RectangleCollider.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TriggerCollisionCache.h">
+      <Filter>Engine\Components\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

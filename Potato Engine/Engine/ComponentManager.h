@@ -20,7 +20,7 @@ public:
 	virtual void update() = 0;
 	virtual bool init() = 0;
 	virtual void close() = 0;
-	virtual bool initializeComponent(Reference<Component> component) = 0;
+	virtual bool initializeComponent(Reference<Component>& component) = 0;
 
 protected:
 	void refreshComponents();
