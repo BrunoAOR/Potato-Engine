@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_RENDERER
+#define H_RENDERER
 
 #include "../SDL2/include/SDL_render.h"
 #include <string>
@@ -54,3 +55,6 @@ private:
 	Vector2 m_rotationPivot;
 	Vector2 m_scalePivot;
 };
+
+
+#endif // !H_RENDERER

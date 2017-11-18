@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_RENDERERS_MANAGER
+#define H_RENDERERS_MANAGER
 
 #include "../SDL2/include/SDL.h"
 #include "ComponentManager.h"
@@ -29,3 +30,6 @@ private:
 	virtual void close() override;
 	virtual bool initializeComponent(Reference<Component> component) override;
 };
+
+
+#endif // !H_RENDERERS_MANAGER

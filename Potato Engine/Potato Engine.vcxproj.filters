@@ -28,6 +28,9 @@
     <Filter Include="Engine\Components\Renderers">
       <UniqueIdentifier>{077d3bfb-5484-450e-8abe-67fd24edf3f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\API">
+      <UniqueIdentifier>{02d90e05-6641-477a-9982-2b46b8acba1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Engine\RenderersManager.cpp">
       <Filter>Engine\Components\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\API.cpp">
+      <Filter>Engine\API</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Renderer.h">
       <Filter>Engine\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\API.h">
+      <Filter>Engine\API</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
