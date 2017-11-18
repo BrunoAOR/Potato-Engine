@@ -1,7 +1,7 @@
 #include "ComponentsManager.h"
 
 #include "ComponentManager.h"
-//#include "BehavioursManager.h"
+#include "BehavioursManager.h"
 //#include "CollidersManager.h"
 #include "RenderersManager.h"
 
@@ -34,7 +34,7 @@ bool ComponentsManager::init()
 	// Success flag
 	bool success = true;
 
-	//componentManagers.push_back(new BehavioursManager());
+	componentManagers.push_back(new BehavioursManager());
 	//componentManagers.push_back(new CollidersManager());
 	componentManagers.push_back(new RenderersManager());
 	for (auto compManager : componentManagers)

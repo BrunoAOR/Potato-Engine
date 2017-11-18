@@ -31,6 +31,9 @@
     <Filter Include="Engine\API">
       <UniqueIdentifier>{02d90e05-6641-477a-9982-2b46b8acba1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Components\Behaviours">
+      <UniqueIdentifier>{970826a2-7f24-40b4-a864-ce381166732b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -89,6 +92,21 @@
     </ClCompile>
     <ClCompile Include="Engine\API.cpp">
       <Filter>Engine\API</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Behaviour.cpp">
+      <Filter>Engine\Components\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\BehavioursManager.cpp">
+      <Filter>Engine\Components\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SpriteRenderer.cpp">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SpriteSheet.cpp">
+      <Filter>Engine\Components\Renderers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +175,21 @@
     </ClInclude>
     <ClInclude Include="Engine\API.h">
       <Filter>Engine\API</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\BehavioursManager.h">
+      <Filter>Engine\Components\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Behaviour.h">
+      <Filter>Engine\Components\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SpriteRenderer.h">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SpriteSheet.h">
+      <Filter>Engine\Components\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

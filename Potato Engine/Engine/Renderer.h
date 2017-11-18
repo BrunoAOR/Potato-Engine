@@ -34,6 +34,11 @@ public:
 	void setAllPivots(const Vector2& pivot);
 
 protected:
+	// Renders texture at given point
+	void renderMain(SDL_Rect* clip = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
+
+	void free();
+
 	// The renderer associated with this texture
 	SDL_Renderer* m_renderer;
 
@@ -43,11 +48,6 @@ protected:
 	// Image dimensions
 	int m_width;
 	int m_height;
-
-	// Renders texture at given point
-	void renderMain(SDL_Rect* clip = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
-	void free();
 
 private:
 	// Pivots

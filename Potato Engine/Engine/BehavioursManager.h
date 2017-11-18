@@ -1,24 +1,21 @@
-#ifndef H_RENDERERS_MANAGER
-#define H_RENDERERS_MANAGER
+#ifndef H_BEHAVIOURS_MANAGER
+#define H_BEHAVIOURS_MANAGER
 
-#include "../SDL2/include/SDL.h"
 #include "ComponentManager.h"
 #include "Reference.h"
-
 class Component;
 
 
-class RenderersManager final :
+class BehavioursManager final :
 	public ComponentManager
 {
 	friend class ComponentsManager;
+
 public:
-	~RenderersManager();
+	~BehavioursManager();
 
 private:
-	RenderersManager();
-
-	SDL_Renderer * getRenderer();
+	BehavioursManager();
 
 	// Inherited via ComponentManager
 	virtual ComponentType managedComponentType() override;
@@ -26,11 +23,7 @@ private:
 	virtual bool init() override;
 	virtual void close() override;
 	virtual bool initializeComponent(Reference<Component> component) override;
-
-	SDL_Window * m_window;
-	SDL_Renderer * m_renderer;
-	int m_fontSize;
 };
 
 
-#endif // !H_RENDERERS_MANAGER
+#endif // !H_BEHAVIOURS_MANAGER
