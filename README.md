@@ -5,7 +5,7 @@ Find the full project at: https://github.com/BrunoAOR/Potato-Engine.
 
 ## What is this?
 Potato Engine is a small 2D game engine that uses the SDL library and was built as part of a learning process about engines and 2D games. The project started trying to learn how to use SDL to build any game (ideas were blurry at the time). Quickly, the focus switched from building 'any game' to building a primitive game engine. The initial repository can be found at https://github.com/BrunoAOR/SDL-Game, but it is fairly disorganized and requires setting the include directories and library linking from the project settings to the place where you have the SDL library in your particular system.  
-In this version, the structure will be better organized, SDL will be included within the repository and the linking will be achieved throught compiler comments within the project files.
+In this version, the structure is better organized, SDL is included within the repository and the linking is achieved throught compiler comments within the project files.
 
 ## How to use?
 
