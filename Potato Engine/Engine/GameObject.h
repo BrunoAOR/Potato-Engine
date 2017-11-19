@@ -55,6 +55,7 @@ private:
 	void refreshComponents();
 
 	bool m_isActive;
+	bool m_isInCreation;
 	Reference<GameObject> m_self;
 
 	// Components related
@@ -71,7 +72,14 @@ Reference<T> GameObject::addComponent()
 	if (component)
 	{
 		Reference<T> componentRef = component.getReference();
-		m_componentsToAdd.push_back(std::move(component));
+		if (m_isInCreation)
+		{
+			m_components.push_back(std::move(component));
+		}
+		else
+		{
+			m_componentsToAdd.push_back(std::move(component));
+		}
 		return componentRef;
 	}
 	else

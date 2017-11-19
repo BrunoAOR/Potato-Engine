@@ -178,6 +178,8 @@
     <ClInclude Include="Engine\InputController.h" />
     <ClInclude Include="Engine\TimeController.h" />
     <ClInclude Include="Engine\gameConfig.h" />
+    <ClInclude Include="Engine\Prefab.h" />
+    <ClInclude Include="Engine\PrefabsFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

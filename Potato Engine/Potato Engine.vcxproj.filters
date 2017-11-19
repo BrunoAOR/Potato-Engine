@@ -227,5 +227,11 @@
     <ClInclude Include="Engine\TriggerCollisionCache.h">
       <Filter>Engine\Components\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Prefab.h">
+      <Filter>Engine\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PrefabsFactory.h">
+      <Filter>Engine\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

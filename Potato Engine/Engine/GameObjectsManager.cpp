@@ -73,6 +73,7 @@ void GameObjectsManager::doAddGameObject(ReferenceOwner<GameObject>& gameObject)
 {
 	if (EngineUtils::indexOf(m_gameObjects, gameObject) == -1) {
 		// So the gameObject hasn't previously been added
+		gameObject->m_isInCreation = false;
 		m_gameObjects.push_back(std::move(gameObject));
 	}
 }

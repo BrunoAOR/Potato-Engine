@@ -21,6 +21,7 @@ GameObject::GameObject()
 	// TESTING END
 
 	m_isActive = true;
+	m_isInCreation = true;
 }
 
 
