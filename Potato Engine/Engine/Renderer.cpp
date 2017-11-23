@@ -9,12 +9,15 @@
 
 Renderer::Renderer()
 	: m_renderer(nullptr)
+	, m_renderersManager(nullptr)
 	, m_texture(nullptr)
 	, m_width(0)
 	, m_height(0)
 	, m_positionPivot(Vector2(0.5, 0.5))
 	, m_rotationPivot(Vector2(0.5, 0.5))
 	, m_scalePivot(Vector2(0.5, 0.5))
+	, m_renderLayer("default")
+	, m_zIndex(0)
 {
 	type = ComponentType::Renderer;
 }
@@ -162,4 +165,34 @@ void Renderer::setAllPivots(const Vector2& pivot)
 	setPositionPivot(pivot);
 	setRotationPivot(pivot);
 	setScalePivot(pivot);
+}
+
+
+std::string Renderer::getRenderLayer()
+{
+	return m_renderLayer;
+}
+
+
+bool Renderer::setRenderLayer(const std::string & drawLayer)
+{
+	if (m_renderersManager->changeRendererLayer(this, m_renderLayer, drawLayer))
+	{
+		m_renderLayer = drawLayer;
+		return true;
+	}
+	return false;
+}
+
+
+int Renderer::getZIndex()
+{
+	return m_zIndex;
+}
+
+
+void Renderer::setZIndex(int zIndex)
+{
+	m_renderersManager->markLayerAsDirty(m_renderLayer);
+	m_zIndex = zIndex;
 }

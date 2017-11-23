@@ -28,7 +28,6 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	refreshComponents();
-	m_components.clear();
 
 	// TESTING START
 	OutputLog("GO  destructed -id: %i  ||  Alive: %i", m_id, --s_alive);

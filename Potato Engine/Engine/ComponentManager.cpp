@@ -92,3 +92,9 @@ void ComponentManager::doUnsubscribe(Reference<Component>& component)
 		m_components.erase(m_components.begin() + index);
 	}
 }
+
+
+ComponentType ComponentManager::getComponentType(Reference<Component>& component)
+{
+	return component->type;
+}

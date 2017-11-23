@@ -33,6 +33,11 @@ public:
 
 	void setAllPivots(const Vector2& pivot);
 
+	std::string getRenderLayer();
+	bool setRenderLayer(const std::string& drawLayer);
+	int getZIndex();
+	void setZIndex(int zIndex);
+
 protected:
 	// Renders texture at given point
 	void renderMain(SDL_Rect* clip = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
@@ -41,6 +46,7 @@ protected:
 
 	// The renderer associated with this texture
 	SDL_Renderer* m_renderer;
+	RenderersManager* m_renderersManager;
 
 	// The actual hardware texture
 	SDL_Texture* m_texture;
@@ -54,6 +60,10 @@ private:
 	Vector2 m_positionPivot;
 	Vector2 m_rotationPivot;
 	Vector2 m_scalePivot;
+
+	// Draw-depth information
+	std::string m_renderLayer;
+	int m_zIndex;
 };
 
 

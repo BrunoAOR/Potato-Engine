@@ -13,8 +13,8 @@ public:
 	ComponentManager();
 	virtual ~ComponentManager();
 
-	bool subscribeComponent(Reference<Component>& component);
-	bool unsubscribeComponent(Reference<Component>& component);
+	virtual bool subscribeComponent(Reference<Component>& component);
+	virtual bool unsubscribeComponent(Reference<Component>& component);
 	
 	virtual ComponentType managedComponentType() = 0;
 	virtual void update() = 0;
@@ -27,6 +27,7 @@ protected:
 	void removeEmptyReferences();
 	void doSubscribe(Reference<Component>& component);
 	void doUnsubscribe(Reference<Component>& component);
+	ComponentType getComponentType(Reference<Component>& component);
 
 	std::vector<Reference<Component>> m_components;
 	std::vector<Reference<Component>> m_componentsToSubscribe;

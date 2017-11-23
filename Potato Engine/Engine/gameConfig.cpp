@@ -8,6 +8,7 @@ const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224;
 const int SCREEN_SIZE = 1;
 
+
 bool scenesConfig()
 {
 	// Success flag
@@ -15,7 +16,13 @@ bool scenesConfig()
 
 	// Usage: import and add everyScene as shown in the following line (where SomeScene is a class that inherits from Scene):
 	//success &= engine->sceneManager->addScene<SomeScene>();
-
+	
 	engine->sceneManager->loadScene(0);
 	return success;
+}
+
+
+std::vector<std::string> renderLayersConfig()
+{
+	return std::vector<std::string>{"Background", "Main", "Foreground" };
 }
