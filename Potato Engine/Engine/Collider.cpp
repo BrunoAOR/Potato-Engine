@@ -9,7 +9,7 @@
 
 Collider::Collider() : offset(0, 0), isStatic(false), isTrigger(false)
 {
-	m_type = ComponentType::Collider;
+	m_type = ComponentType::COLLIDER;
 }
 
 

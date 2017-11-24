@@ -104,7 +104,7 @@ bool RenderersManager::unsubscribeComponent(Reference<Component>& component)
 
 ComponentType RenderersManager::managedComponentType() const
 {
-	return ComponentType::Renderer;
+	return ComponentType::RENDERER;
 }
 
 

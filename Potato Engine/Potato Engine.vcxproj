@@ -145,6 +145,7 @@
     <ClCompile Include="Engine\gameConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\ColliderType.h" />
     <ClInclude Include="Engine\API.h" />
     <ClInclude Include="Engine\Behaviour.h" />
     <ClInclude Include="Engine\BehavioursManager.h" />

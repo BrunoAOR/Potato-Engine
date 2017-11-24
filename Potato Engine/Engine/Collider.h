@@ -5,7 +5,7 @@
 #include "Reference.h"
 #include "Vector2.h"
 struct CollisionInfo;
-
+enum class ColliderType;
 
 class Collider :
 	public Component
@@ -29,6 +29,9 @@ public:
 	Vector2 offset;
 	bool isStatic;
 	bool isTrigger;
+
+protected:
+	ColliderType m_colliderType;
 };
 
 

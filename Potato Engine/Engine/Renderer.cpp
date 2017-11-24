@@ -14,7 +14,7 @@ Renderer::Renderer()
 	, m_renderLayer("default")
 	, m_zIndex(0)
 {
-	m_type = ComponentType::Renderer;
+	m_type = ComponentType::RENDERER;
 }
 
 

@@ -7,7 +7,7 @@
 
 Behaviour::Behaviour()
 {
-	m_type = ComponentType::Behaviour;
+	m_type = ComponentType::BEHAVIOUR;
 	m_isAwake = false;
 	m_started = false;
 }

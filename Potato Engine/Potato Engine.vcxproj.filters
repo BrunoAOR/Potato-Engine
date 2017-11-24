@@ -233,5 +233,8 @@
     <ClInclude Include="Engine\engineUtils.h">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ColliderType.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

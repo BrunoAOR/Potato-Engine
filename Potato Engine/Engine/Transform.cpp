@@ -15,7 +15,7 @@ Transform::Transform()
 	, m_worldRotation(0)
 	, m_worldScale(Vector2(1, 1))
 {
-	m_type = ComponentType::Transform;
+	m_type = ComponentType::TRANSFORM;
 }
 
 

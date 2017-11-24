@@ -4,10 +4,12 @@
 #include <math.h>
 #include "GameObject.h"
 #include "Transform.h"
+#include "ColliderType.h"
 
 
 RectangleCollider::RectangleCollider() : size(0, 0)
 {
+	m_colliderType = ColliderType::RECTANGLE;
 }
 
 

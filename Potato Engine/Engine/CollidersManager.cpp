@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "CollisionInfo.h"
+#include "ColliderType.h"
 #include "CircleCollider.h"
 #include "RectangleCollider.h"
 
@@ -23,7 +24,7 @@ CollidersManager::~CollidersManager()
 
 ComponentType CollidersManager::managedComponentType() const
 {
-	return ComponentType::Collider;
+	return ComponentType::COLLIDER;
 }
 
 
@@ -38,23 +39,25 @@ void CollidersManager::update()
 	}
 	for (unsigned int i = 0; i < m_components.size() - 1; ++i)
 	{
-		auto componentRef1 = m_components[i];
-		if (auto colliderRef1 = componentRef1.static_reference_cast<Collider>())
+		Reference<Component>& componentRef1 = m_components[i];
+		Collider* collider1 = static_cast<Collider*>(componentRef1.get());
+		for (unsigned int j = i + 1; j < m_components.size(); ++j)
 		{
-			for (unsigned int j = i + 1; j < m_components.size(); ++j)
+			Reference<Component>& componentRef2 = m_components[j];
+			Collider* collider2 = static_cast<Collider*>(componentRef2.get());
+
+			if (collider1 != collider2)
 			{
-				auto componentRef2 = m_components[j];
-				if (auto colliderRef2 = componentRef2.static_reference_cast<Collider>())
+				// Actual collider on collider check
+				bool shouldResolve = shouldResolveCollision(collider1, collider2);
+				if (checkAndResolveCollision(collider1, collider2, shouldResolve))
 				{
-					if (colliderRef1 != colliderRef2)
-					{
-						// Actual collider on collider check
-						bool shouldResolve = shouldResolveCollision(colliderRef1, colliderRef2);
-						checkAndResolveCollision(colliderRef1, colliderRef2, shouldResolve);
-					}
+					informCollision(componentRef1.static_reference_cast<Collider>(), componentRef2.static_reference_cast<Collider>());
 				}
 			}
+
 		}
+
 	}
 
 	// Refresh the triggerCollisionCache to call any onTriggerExit methods required
@@ -79,64 +82,62 @@ bool CollidersManager::initializeComponent(Reference<Component>& component)
 }
 
 
-bool CollidersManager::checkAndResolveCollision(Reference<Collider> coll1, Reference<Collider> coll2, bool shouldResolve)
+bool CollidersManager::shouldResolveCollision(const Collider* coll1, const Collider* coll2) const
 {
-	if (coll1->isStatic && !coll2->isStatic)
+	return !(coll1->isTrigger || coll2->isTrigger);
+}
+
+
+bool CollidersManager::checkAndResolveCollision(Collider* coll1, Collider* coll2, bool shouldResolve) const
+{
+	if (coll1->isStatic && coll2->isStatic)
 	{
 		return false;
 	}
 
-	Collider* coll1_rawPtr = coll1.get();
-	Collider* coll2_rawPtr = coll2.get();
-
 	bool collisionOccured = false;
 	
-	if (typeid(CircleCollider) == typeid(*coll1_rawPtr))
+	if (coll1->m_colliderType == ColliderType::CIRCLE)
 	{
-		auto castedColl1 = static_cast<CircleCollider*>(coll1_rawPtr);
+		auto castedColl1 = static_cast<CircleCollider*>(coll1);
 
-		if (typeid(CircleCollider) == typeid(*coll2_rawPtr))
+		if (coll2->m_colliderType == ColliderType::CIRCLE)
 		{
-			auto castedColl2 = static_cast<CircleCollider*>(coll2_rawPtr);
-			collisionOccured = checkAndResolveCollision(*castedColl1, *castedColl2, shouldResolve);
+			auto castedColl2 = static_cast<CircleCollider*>(coll2);
+			collisionOccured = checkAndResolveCollision(castedColl1, castedColl2, shouldResolve);
 		}
-		else if (typeid(RectangleCollider) == typeid(*coll2_rawPtr))
+		else if (coll2->m_colliderType == ColliderType::RECTANGLE)
 		{
-			auto castedColl2 = static_cast<RectangleCollider*>(coll2_rawPtr);
-			collisionOccured = checkAndResolveCollision(*castedColl1, *castedColl2, shouldResolve);
+			auto castedColl2 = static_cast<RectangleCollider*>(coll2);
+			collisionOccured = checkAndResolveCollision(castedColl1, castedColl2, shouldResolve);
 		}
 	}
-	else if (typeid(RectangleCollider) == typeid(*coll1_rawPtr))
+	else if (coll1->m_colliderType == ColliderType::RECTANGLE)
 	{
-		auto castedColl1 = static_cast<RectangleCollider*>(coll1_rawPtr);
+		auto castedColl1 = static_cast<RectangleCollider*>(coll1);
 
-		if (typeid(CircleCollider) == typeid(*coll2_rawPtr))
+		if (coll2->m_colliderType == ColliderType::CIRCLE)
 		{
-			auto castedColl2 = static_cast<CircleCollider*>(coll2_rawPtr);
-			collisionOccured = checkAndResolveCollision(*castedColl1, *castedColl2, shouldResolve);
+			auto castedColl2 = static_cast<CircleCollider*>(coll2);
+			collisionOccured = checkAndResolveCollision(castedColl1, castedColl2, shouldResolve);
 		}
-		else if (typeid(RectangleCollider) == typeid(*coll2_rawPtr))
+		else if (coll2->m_colliderType == ColliderType::RECTANGLE)
 		{
-			auto castedColl2 = static_cast<RectangleCollider*>(coll2_rawPtr);
-			collisionOccured = checkAndResolveCollision(*castedColl1, *castedColl2, shouldResolve);
+			auto castedColl2 = static_cast<RectangleCollider*>(coll2);
+			collisionOccured = checkAndResolveCollision(castedColl1, castedColl2, shouldResolve);
 		}
-	}
-
-	if (collisionOccured)
-	{
-		informCollision(coll1, coll2);
 	}
 	return collisionOccured;
 }
 
 
-bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl1, CircleCollider & circColl2, bool shouldResolve)
+bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl1, CircleCollider* circColl2, bool shouldResolve) const
 {
-	Vector2 pos1 = circColl1.getWorldPosition();
+	Vector2 pos1 = circColl1->getWorldPosition();
 
-	Vector2 pos2 = circColl2.getWorldPosition();
+	Vector2 pos2 = circColl2->getWorldPosition();
 
-	float penetrationDistance = circColl1.radius + circColl2.radius - Vector2::distance(pos1, pos2);
+	float penetrationDistance = circColl1->radius + circColl2->radius - Vector2::distance(pos1, pos2);
 
 	if (penetrationDistance > m_minPenetration)
 	{
@@ -152,28 +153,28 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl1, Circ
 }
 
 
-bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, RectangleCollider & rectColl2, bool shouldResolve)
+bool CollidersManager::checkAndResolveCollision(RectangleCollider* rectColl1, RectangleCollider* rectColl2, bool shouldResolve) const
 {
 	// First, we get the normals from the rectColls.
 	// Only the first 2 normals are needed for each rect, since the other two are the same but in opposite direction
 	// Special case: if the rotation of both rectangle is the same, then only the first 2 normals of either rectColl are required
 	std::vector<Vector2> selectedNormals;
-	if (rectColl1.getWorldRotation() == rectColl2.getWorldRotation())
+	if (rectColl1->getWorldRotation() == rectColl2->getWorldRotation())
 	{
-		auto r1Normals = rectColl1.getOuterNormals();
+		auto r1Normals = rectColl1->getOuterNormals();
 		selectedNormals = { r1Normals[0], r1Normals[1]};
 	}
 	else
 	{
-		auto r1Normals = rectColl1.getOuterNormals();
-		auto r2Normals = rectColl2.getOuterNormals();
+		auto r1Normals = rectColl1->getOuterNormals();
+		auto r2Normals = rectColl2->getOuterNormals();
 		selectedNormals = { r1Normals[0], r1Normals[1], r2Normals[0], r2Normals[1] };
 	}
 
 	// Now we need iterate through the selectedNormals projecting the rects' corners onto the normal and recording the smallest overlap found
 	// 1. Get the corners for both rects
-	auto r1Corners = rectColl1.getWorldCorners();
-	auto r2Corners = rectColl2.getWorldCorners();
+	auto r1Corners = rectColl1->getWorldCorners();
+	auto r2Corners = rectColl2->getWorldCorners();
 
 	// 2. Create variables to store the smallest overlap vector and direction (stored separate to easily compare the length)
 	float minOverlapLength = std::numeric_limits<float>::max();
@@ -246,36 +247,36 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl1, R
 }
 
 
-bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl, RectangleCollider & rectColl, bool shouldResolve)
+bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl, RectangleCollider* rectColl, bool shouldResolve) const
 {
 	// To solve this collision with rotated rectangles, we'll temporarily place the circle as a child of the rectangle.
 	// In this way, the rectColl will be axis aligned in the reference system for the circle
 	// So locally, the rectangle would be possitioned at its offset and the circle would be positioned at its localPoisiton + offset
 
 	// Store the circ's previous parent and then change to the rect
-	auto circTransform = circColl.gameObject()->transform;
+	auto circTransform = circColl->gameObject()->transform;
 	auto originalCircParent = circTransform->getParent();
-	circTransform->setParent(rectColl.gameObject()->transform);
+	circTransform->setParent(rectColl->gameObject()->transform);
 
 	// circColl
-	Vector2 localCircPos = circColl.getLocalPosition();
+	Vector2 localCircPos = circColl->getLocalPosition();
 
 	// rectColl
-	Vector2 localRectPos = rectColl.offset;
+	Vector2 localRectPos = rectColl->offset;
 
-	Vector2 closestPointFromPointToRect = EngineUtils::closestPointOnOrientedRectFromPoint(localRectPos, rectColl.size, localCircPos);
+	Vector2 closestPointFromPointToRect = EngineUtils::closestPointOnOrientedRectFromPoint(localRectPos, rectColl->size, localCircPos);
 
 	float penetrationDistance = 0;
 	Vector2 penetrationVector;
-	if (EngineUtils::isPointInRect(localRectPos, rectColl.size, localCircPos))
+	if (EngineUtils::isPointInRect(localRectPos, rectColl->size, localCircPos))
 	{
 		penetrationVector = closestPointFromPointToRect - localCircPos;
-		penetrationDistance = circColl.radius + penetrationVector.getLength();
+		penetrationDistance = circColl->radius + penetrationVector.getLength();
 	}
 	else
 	{
 		penetrationVector = localCircPos - closestPointFromPointToRect;
-		penetrationDistance = circColl.radius - penetrationVector.getLength();
+		penetrationDistance = circColl->radius - penetrationVector.getLength();
 	}
 	penetrationVector.normalize();
 	penetrationVector *= penetrationDistance;
@@ -300,19 +301,13 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider & circColl, Recta
 }
 
 
-bool CollidersManager::checkAndResolveCollision(RectangleCollider & rectColl, CircleCollider & circColl, bool shouldResolve)
+bool CollidersManager::checkAndResolveCollision(RectangleCollider* rectColl, CircleCollider* circColl, bool shouldResolve) const
 {
 	return checkAndResolveCollision(circColl, rectColl, shouldResolve);
 }
 
 
-bool CollidersManager::shouldResolveCollision(Reference<Collider> coll1, Reference<Collider> coll2)
-{
-	return !(coll1->isTrigger || coll2->isTrigger);
-}
-
-
-void CollidersManager::resolveCollision(CircleCollider& circColl1, const Vector2& pos1, CircleCollider& circColl2, const Vector2& pos2, float penetrationDistance)
+void CollidersManager::resolveCollision(CircleCollider* circColl1, const Vector2& pos1, CircleCollider* circColl2, const Vector2& pos2, float penetrationDistance) const
 {
 	// First, get the vector to move circColl1 away from circColl2
 	Vector2 moveVector = (pos1 - pos2).normalized() * penetrationDistance;
@@ -323,36 +318,36 @@ void CollidersManager::resolveCollision(CircleCollider& circColl1, const Vector2
 	}
 
 	// Now, define which rectColl has to move (see isStatic) and move it
-	if (!circColl1.isStatic && circColl2.isStatic)
+	if (!circColl1->isStatic && circColl2->isStatic)
 	{
 		// Only circColl1's gameObject is pushed
-		Vector2 targetPos = pos1 + moveVector - circColl1.offset;
-		circColl1.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = pos1 + moveVector - circColl1->offset;
+		circColl1->gameObject()->transform->setWorldPosition(targetPos);
 	}
-	else if (circColl1.isStatic && !circColl2.isStatic)
+	else if (circColl1->isStatic && !circColl2->isStatic)
 	{
 		// Only circColl2's gameObject is pushed
 		moveVector = -moveVector;	// Invert the vector to clear rectColl2 away from rectColl1
-		Vector2 targetPos = pos2 + moveVector - circColl2.offset;
-		circColl2.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = pos2 + moveVector - circColl2->offset;
+		circColl2->gameObject()->transform->setWorldPosition(targetPos);
 	}
 	else {	// So neither circColl1, nor circColl2 are static (both can't be static because this function would have never been called
 		// Both  circColl1's gameObject and circColl1's gameObject are pushed
 		
 		// Move circColl1 away
-		Vector2 targetPos1 = pos1 + moveVector / 2 - circColl1.offset;
-		circColl1.gameObject()->transform->setWorldPosition(targetPos1);
+		Vector2 targetPos1 = pos1 + moveVector / 2 - circColl1->offset;
+		circColl1->gameObject()->transform->setWorldPosition(targetPos1);
 		// Move circColl2 away
-		Vector2 targetPos2 = pos2 + -moveVector / 2 - circColl2.offset;
-		circColl2.gameObject()->transform->setWorldPosition(targetPos2);
+		Vector2 targetPos2 = pos2 + -moveVector / 2 - circColl2->offset;
+		circColl2->gameObject()->transform->setWorldPosition(targetPos2);
 	}
 }
 
 
-void CollidersManager::resolveCollision(RectangleCollider & rectColl1, RectangleCollider & rectColl2, Vector2 & penetrationVector)
+void CollidersManager::resolveCollision(RectangleCollider* rectColl1, RectangleCollider* rectColl2, Vector2& penetrationVector) const
 {
-	Vector2 pos1 = rectColl1.getWorldPosition();
-	Vector2 pos2 = rectColl2.getWorldPosition();
+	Vector2 pos1 = rectColl1->getWorldPosition();
+	Vector2 pos2 = rectColl2->getWorldPosition();
 
 	// Ensure penetrationVector is aligned so that r1 is pulled away from r2
 	if (Vector2::dot(pos1 - pos2, penetrationVector) < 0)
@@ -362,66 +357,66 @@ void CollidersManager::resolveCollision(RectangleCollider & rectColl1, Rectangle
 	}
 
 	// Now, define which rectColl has to move (see isStatic) and move only in the shortest direction
-	if (!rectColl1.isStatic && rectColl2.isStatic)
+	if (!rectColl1->isStatic && rectColl2->isStatic)
 	{
 		// Only rectColl1's gameObject is pushed
-		Vector2 targetPos = pos1 + penetrationVector - rectColl1.offset;
-		rectColl1.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = pos1 + penetrationVector - rectColl1->offset;
+		rectColl1->gameObject()->transform->setWorldPosition(targetPos);
 	}
-	else if (rectColl1.isStatic && !rectColl2.isStatic)
+	else if (rectColl1->isStatic && !rectColl2->isStatic)
 	{
 		// Only rectColl2's gameObject is pushed
 		// Invert the vector to clear rectColl2 away from rectColl1
-		Vector2 targetPos = pos2 + -penetrationVector - rectColl2.offset;
-		rectColl2.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = pos2 + -penetrationVector - rectColl2->offset;
+		rectColl2->gameObject()->transform->setWorldPosition(targetPos);
 	}
 	else {	// So neither rectColl1, nor rectColl2 are static (both can't be static because this function would have never been called
 		// Both  rectColl1's gameObject and rectColl1's gameObject are pushed
 
 		// Move rectColl1 away
-		Vector2 targetPos1 = pos1 + penetrationVector / 2 - rectColl1.offset;
-		rectColl1.gameObject()->transform->setWorldPosition(targetPos1);
+		Vector2 targetPos1 = pos1 + penetrationVector / 2 - rectColl1->offset;
+		rectColl1->gameObject()->transform->setWorldPosition(targetPos1);
 		// Move rectColl2 away
-		Vector2 targetPos2 = pos2 + -penetrationVector / 2 - rectColl2.offset;
-		rectColl2.gameObject()->transform->setWorldPosition(targetPos2);
+		Vector2 targetPos2 = pos2 + -penetrationVector / 2 - rectColl2->offset;
+		rectColl2->gameObject()->transform->setWorldPosition(targetPos2);
 	}
 
 }
 
 
-void CollidersManager::resolveCollision(CircleCollider & circColl, RectangleCollider & rectColl, const Vector2 & penetrationVector)
+void CollidersManager::resolveCollision(CircleCollider* circColl, RectangleCollider* rectColl, const Vector2& penetrationVector) const
 {
-	Vector2 circPos = circColl.getWorldPosition();
-	Vector2 rectPos = rectColl.getWorldPosition();
+	Vector2 circPos = circColl->getWorldPosition();
+	Vector2 rectPos = rectColl->getWorldPosition();
 
 	// Define which collider has to move (see isStatic) and move using the penetrationVector
-	if (!circColl.isStatic && rectColl.isStatic)
+	if (!circColl->isStatic && rectColl->isStatic)
 	{
 		// Only circColl's gameObject is pushed
-		Vector2 targetPos = circPos + penetrationVector - circColl.offset;
-		circColl.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = circPos + penetrationVector - circColl->offset;
+		circColl->gameObject()->transform->setWorldPosition(targetPos);
 	}
-	else if (circColl.isStatic && !rectColl.isStatic)
+	else if (circColl->isStatic && !rectColl->isStatic)
 	{
 		// Only rectColl's gameObject is pushed
-		Vector2 targetPos = rectPos + -penetrationVector - rectColl.offset;
-		rectColl.gameObject()->transform->setWorldPosition(targetPos);
+		Vector2 targetPos = rectPos + -penetrationVector - rectColl->offset;
+		rectColl->gameObject()->transform->setWorldPosition(targetPos);
 	}
 	else {	// So neither circColl, nor rectColl are static (both can't be static because this function would have never been called
 			// Both  circColl's gameObject and rectColl's gameObject are pushed
 
 			// Move rectColl1 away
-		Vector2 targetPos1 = circPos + penetrationVector / 2 - circColl.offset;
-		circColl.gameObject()->transform->setWorldPosition(targetPos1);
+		Vector2 targetPos1 = circPos + penetrationVector / 2 - circColl->offset;
+		circColl->gameObject()->transform->setWorldPosition(targetPos1);
 		// Move rectColl2 away
-		Vector2 targetPos2 = rectPos + -penetrationVector / 2 - rectColl.offset;
-		rectColl.gameObject()->transform->setWorldPosition(targetPos2);
+		Vector2 targetPos2 = rectPos + -penetrationVector / 2 - rectColl->offset;
+		rectColl->gameObject()->transform->setWorldPosition(targetPos2);
 	}
 
 }
 
 
-void CollidersManager::informCollision(Reference<Collider> coll1, Reference<Collider> coll2)
+void CollidersManager::informCollision(Reference<Collider>& coll1, Reference<Collider>& coll2)
 {
 	// If non of the colliders are triggers, then the onCollision method should be called
 	if (!coll1->isTrigger && !coll2->isTrigger)

@@ -5,10 +5,10 @@
 enum class ComponentType
 {
 	UNDEFINED,
-	Transform,
-	Renderer,
-	Behaviour,
-	Collider
+	TRANSFORM,
+	RENDERER,
+	BEHAVIOUR,
+	COLLIDER
 };
 
 

@@ -17,7 +17,7 @@ BehavioursManager::~BehavioursManager()
 
 ComponentType BehavioursManager::managedComponentType() const
 {
-	return ComponentType::Behaviour;
+	return ComponentType::BEHAVIOUR;
 }
 
 
