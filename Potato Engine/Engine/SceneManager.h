@@ -17,13 +17,13 @@ public:
 	void loadScene(unsigned int index);
 	void close();
 
-	template <typename T>
+	template<typename T>
 	bool addScene();
-	bool hasActiveScene();
+	bool hasActiveScene() const;
 
 private:
 	void doLoadScene();
-	void unloadScene(Scene* sceneToUnload);
+	void unloadScene(Scene* sceneToUnload) const;
 
 	std::vector<Scene*> m_scenes;
 	Scene* m_activeScene = nullptr;

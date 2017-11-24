@@ -5,12 +5,10 @@
 
 
 SpriteSheet::SpriteSheet()
-	: m_currentAnimation(nullptr)
-	, m_currentClipRect(nullptr)
-	, m_currentClipRectIndex(-1)
+	: m_currentClipRectIndex(-1)
 	, m_isPlaying(false)
 	, m_elapsedTime(0)
-	, m_limitTime(200)
+	, m_timeLimit(200)
 	, m_direction(0)
 {
 }
@@ -27,12 +25,12 @@ void SpriteSheet::render()
 	if (m_currentClipRect != nullptr)
 	{
 		// Check if automatic animation playback is active
-		if (m_isPlaying && m_limitTime != 0)
+		if (m_isPlaying && m_timeLimit != 0)
 		{
 			m_elapsedTime += engine->time->deltaTime();
-			if (m_elapsedTime >= m_limitTime)
+			if (m_elapsedTime >= m_timeLimit)
 			{
-				m_elapsedTime -= m_limitTime;
+				m_elapsedTime -= m_timeLimit;
 				if (m_direction > 0)
 				{
 					nextAnimationFrame();
@@ -49,7 +47,7 @@ void SpriteSheet::render()
 }
 
 
-bool SpriteSheet::addAnimation(const std::string animationName)
+bool SpriteSheet::addAnimation(const std::string& animationName)
 {
 	if (m_animations.count(animationName) == 0)
 	{
@@ -61,7 +59,7 @@ bool SpriteSheet::addAnimation(const std::string animationName)
 }
 
 
-bool SpriteSheet::addRectForAnimation(const std::string animationName, const Vector2& topLeftCorner, int width, int height)
+bool SpriteSheet::addRectForAnimation(const std::string& animationName, const Vector2& topLeftCorner, int width, int height)
 {
 	if (m_animations.count(animationName) == 1)
 	{
@@ -73,7 +71,7 @@ bool SpriteSheet::addRectForAnimation(const std::string animationName, const Vec
 }
 
 
-bool SpriteSheet::clearAllRectsInAnimation(const std::string animationName)
+bool SpriteSheet::clearAllRectsInAnimation(const std::string& animationName)
 {
 	if (m_animations.count(animationName) == 1)
 	{
@@ -84,7 +82,7 @@ bool SpriteSheet::clearAllRectsInAnimation(const std::string animationName)
 }
 
 
-bool SpriteSheet::removeAnimation(const std::string animationName)
+bool SpriteSheet::removeAnimation(const std::string& animationName)
 {
 	if (m_animations.count(animationName) == 1)
 	{
@@ -106,7 +104,7 @@ void SpriteSheet::clearAllAnimations()
 }
 
 
-bool SpriteSheet::selectAnimation(std::string animationName)
+bool SpriteSheet::selectAnimation(const std::string& animationName)
 {
 	if (m_animations.count(animationName) == 1)
 	{
@@ -163,7 +161,7 @@ bool SpriteSheet::nextAnimationFrame()
 }
 
 
-bool SpriteSheet::playAnimation(std::string animationName)
+bool SpriteSheet::playAnimation(const std::string& animationName)
 {
 	stopAnimation();
 	if (selectAnimation(animationName)) {
@@ -176,7 +174,7 @@ bool SpriteSheet::playAnimation(std::string animationName)
 }
 
 
-bool SpriteSheet::playAnimation(std::string animationName, float fps)
+bool SpriteSheet::playAnimation(const std::string& animationName, float fps)
 {
 	stopAnimation();
 	if (selectAnimation(animationName) && fps != 0) {
@@ -194,17 +192,17 @@ void SpriteSheet::setAnimationSpeed(float fps)
 {
 	if (fps == 0)
 	{
-		m_limitTime = 0;
+		m_timeLimit = 0;
 		m_direction = 0;
 	}
 	else if (fps > 0)
 	{
-		m_limitTime = (int)(1000 / fps);
+		m_timeLimit = (int)(1000 / fps);
 		m_direction = 1;
 	}
 	else // if (fps < 0)
 	{
-		m_limitTime = (int)(-1000 / fps);
+		m_timeLimit = (int)(-1000 / fps);
 		m_direction = -1;
 	}
 }
@@ -216,7 +214,7 @@ bool SpriteSheet::stopAnimation()
 	{
 		m_isPlaying = false;
 		m_elapsedTime = 0;
-		m_limitTime = 0;
+		m_timeLimit = 0;
 		m_direction = 0;
 		return true;
 	}

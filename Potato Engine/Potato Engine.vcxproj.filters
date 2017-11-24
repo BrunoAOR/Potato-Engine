@@ -54,9 +54,6 @@
     <ClCompile Include="Engine\Vector2.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EngineUtils.cpp">
-      <Filter>Engine\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ReferenceBase.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
     <ClCompile Include="Engine\CircleCollider.cpp">
       <Filter>Engine\Components\Colliders</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\engineUtils.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -145,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="Engine\ComponentType.h">
       <Filter>Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineUtils.h">
-      <Filter>Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Reference.h">
       <Filter>Engine\Helpers</Filter>
@@ -232,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="Engine\PrefabsFactory.h">
       <Filter>Engine\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\engineUtils.h">
+      <Filter>Engine\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

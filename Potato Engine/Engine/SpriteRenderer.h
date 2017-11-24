@@ -11,20 +11,20 @@ public:
 	SpriteRenderer();
 	~SpriteRenderer();
 
-	bool loadImage(std::string path);
-	bool loadImage(std::string path, Uint32 colorKey);
+	bool loadImage(const std::string& path);
+	bool loadImage(const std::string& path, Uint32 colorKey);
 
 	// Set color modulation
-	void setColor(Uint8 r, Uint8 g, Uint8 b);
+	void setColor(Uint8 r, Uint8 g, Uint8 b) const;
 
 	// Set Blend Mode
-	void setBlendMode(SDL_BlendMode blendMode);
+	void setBlendMode(SDL_BlendMode blendMode) const;
 
 	// Set alpha modulation
-	void setAlpha(Uint8 a);
+	void setAlpha(Uint8 a) const;
 
 private:
-	bool loadImage(std::string path, bool shouldColorKey, Uint32 colorKey);
+	bool loadImage(const std::string& path, bool shouldColorKey, Uint32 colorKey);
 };
 
 

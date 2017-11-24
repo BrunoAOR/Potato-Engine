@@ -14,14 +14,15 @@ class Component
 public:
 	virtual ~Component() = 0;
 	
+	const Reference<GameObject>& gameObject() const;
 	Reference<GameObject>& gameObject();
 	void setActive(bool activeState);
-	bool isActive();
+	bool isActive() const;
 
 protected:
 	Component();
 
-	ComponentType type;
+	ComponentType m_type;
 
 private:
 	// TESTING FIELDS START

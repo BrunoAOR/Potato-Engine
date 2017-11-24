@@ -10,14 +10,14 @@ using CollidersPair = std::pair<Reference<Collider>, Reference<Collider>>;
 class TriggerCollisionCache final
 {
 public:
-	bool cache(CollidersPair collPair);
+	bool cache(const CollidersPair& collPair);
 	void refresh();
 
 private:
 	int indexOf(const std::vector<CollidersPair>& collPairVector, const CollidersPair& collPair);
 
-	std::vector<CollidersPair> collPairs;
-	std::vector<CollidersPair> registeredCollPairs;
+	std::vector<CollidersPair> m_collPairs;
+	std::vector<CollidersPair> m_registeredCollPairs;
 };
 
 

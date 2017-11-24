@@ -3,7 +3,7 @@
 #include <assert.h>
 
 
-bool operator== (const ReferenceBase& lhs, const ReferenceBase& rhs)
+bool operator==(const ReferenceBase& lhs, const ReferenceBase& rhs)
 {
 	return (lhs.m_referencesList && rhs.m_referencesList && lhs.m_referencesList == rhs.m_referencesList);
 }

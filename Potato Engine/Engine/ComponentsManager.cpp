@@ -16,9 +16,9 @@ ComponentsManager::~ComponentsManager()
 }
 
 
-bool ComponentsManager::sendToManager(Reference<Component> component)
+bool ComponentsManager::sendToManager(Reference<Component> component) const
 {
-	for (auto compManager : componentManagers)
+	for (auto compManager : m_componentManagers)
 	{
 		if (compManager->subscribeComponent(component))
 		{
@@ -34,10 +34,10 @@ bool ComponentsManager::init()
 	// Success flag
 	bool success = true;
 
-	componentManagers.push_back(new BehavioursManager());
-	componentManagers.push_back(new CollidersManager());
-	componentManagers.push_back(new RenderersManager());
-	for (auto compManager : componentManagers)
+	m_componentManagers.push_back(new BehavioursManager());
+	m_componentManagers.push_back(new CollidersManager());
+	m_componentManagers.push_back(new RenderersManager());
+	for (auto compManager : m_componentManagers)
 	{
 		success &= compManager->init();
 	}
@@ -47,18 +47,18 @@ bool ComponentsManager::init()
 
 void ComponentsManager::close()
 {
-	for (auto compManager : componentManagers)
+	for (auto compManager : m_componentManagers)
 	{
 		compManager->close();
 		delete compManager;
 	}
-	componentManagers.clear();
+	m_componentManagers.clear();
 }
 
 
-void ComponentsManager::update()
+void ComponentsManager::update() const
 {
-	for (auto compManager : componentManagers)
+	for (auto compManager : m_componentManagers)
 	{
 		compManager->update();
 	}

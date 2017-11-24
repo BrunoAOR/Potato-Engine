@@ -16,15 +16,15 @@ public:
 	Collider();
 	virtual ~Collider() = 0;
 
-	Vector2 getLocalPosition();
-	Vector2 getWorldPosition();
-	float getWorldRotation();
+	Vector2 getLocalPosition() const;
+	Vector2 getWorldPosition() const;
+	float getWorldRotation() const;
 
 	// Callbacks to reroute to Behaviours
-	void onCollision(CollisionInfo info);
-	void onTriggerEnter(Reference<Collider> other);
-	void onTriggerStay(Reference<Collider> other);
-	void onTriggerExit(Reference<Collider> other);
+	void onCollision(CollisionInfo info) const;
+	void onTriggerEnter(Reference<Collider> other) const;
+	void onTriggerStay(Reference<Collider> other) const;
+	void onTriggerExit(Reference<Collider> other) const;
 
 	Vector2 offset;
 	bool isStatic;

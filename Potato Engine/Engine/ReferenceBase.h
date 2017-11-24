@@ -6,7 +6,7 @@
 
 class ReferenceBase
 {
-	template <typename T>
+	template<typename T>
 	friend class ReferenceOwner;
 	friend bool operator== (const ReferenceBase& lhs, const ReferenceBase& rhs);
 

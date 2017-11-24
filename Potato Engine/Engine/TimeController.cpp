@@ -14,13 +14,13 @@ TimeController::~TimeController()
 }
 
 
-Uint32 TimeController::time()
+Uint32 TimeController::time() const
 {
 	return m_frameStartTime;
 }
 
 
-Uint32 TimeController::deltaTime()
+Uint32 TimeController::deltaTime() const
 {
 	return m_deltaTime;
 }

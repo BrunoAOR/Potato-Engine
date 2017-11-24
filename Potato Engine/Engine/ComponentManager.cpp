@@ -18,7 +18,7 @@ ComponentManager::~ComponentManager()
 bool ComponentManager::subscribeComponent(Reference<Component>& component)
 {
 	// If component is not already in the components-to-subscribe list, add it
-	if (managedComponentType() == component->type && EngineUtils::indexOf(m_componentsToSubscribe, component) == -1)
+	if (managedComponentType() == component->m_type && EngineUtils::indexOf(m_componentsToSubscribe, component) == -1)
 	{
 		m_componentsToSubscribe.push_back(component);
 		initializeComponent(component);
@@ -73,7 +73,7 @@ void ComponentManager::removeEmptyReferences()
 }
 
 
-void ComponentManager::doSubscribe(Reference<Component>& component)
+void ComponentManager::doSubscribe(const Reference<Component>& component)
 {
 	// If component is not already in the components list, add it
 	if (EngineUtils::indexOf(m_components, component) == -1)
@@ -83,7 +83,7 @@ void ComponentManager::doSubscribe(Reference<Component>& component)
 }
 
 
-void ComponentManager::doUnsubscribe(Reference<Component>& component)
+void ComponentManager::doUnsubscribe(const Reference<Component>& component)
 {
 	// If component is in the components list, then remove it
 	int index = EngineUtils::indexOf(m_components, component);
@@ -94,7 +94,7 @@ void ComponentManager::doUnsubscribe(Reference<Component>& component)
 }
 
 
-ComponentType ComponentManager::getComponentType(Reference<Component>& component)
+ComponentType ComponentManager::getComponentType(const Reference<Component>& component) const
 {
-	return component->type;
+	return component->m_type;
 }

@@ -5,37 +5,37 @@
 
 InputController::InputController()
 {
-	currentKeyStates = SDL_GetKeyboardState(NULL);
+	m_currentKeyStates = SDL_GetKeyboardState(NULL);
 }
 
 
 InputController::~InputController()
 {
-	currentKeyStates = nullptr;
+	m_currentKeyStates = nullptr;
 }
 
 
-bool InputController::getKey(SDL_Scancode scancode)
+bool InputController::getKey(SDL_Scancode scancode) const
 {
-	return currentKeyStates[scancode];
+	return m_currentKeyStates[scancode];
 }
 
 
-bool InputController::getKeyUp(SDL_Scancode scancode)
+bool InputController::getKeyUp(SDL_Scancode scancode) const
 {
-	if (keyUpDownStates.count(scancode))
+	if (m_keyUpDownStates.count(scancode))
 	{
-		return keyUpDownStates[scancode] == KeyState::UP;
+		return m_keyUpDownStates.at(scancode) == KeyState::UP;
 	}
 	return false;
 }
 
 
-bool InputController::getKeyDown(SDL_Scancode scancode)
+bool InputController::getKeyDown(SDL_Scancode scancode) const
 {
-	if (keyUpDownStates.count(scancode))
+	if (m_keyUpDownStates.count(scancode))
 	{
-		return keyUpDownStates[scancode] == KeyState::DOWN;
+		return m_keyUpDownStates.at(scancode) == KeyState::DOWN;
 	}
 	return false;
 }
@@ -43,17 +43,17 @@ bool InputController::getKeyDown(SDL_Scancode scancode)
 
 void InputController::clearStates()
 {
-	keyUpDownStates.clear();
+	m_keyUpDownStates.clear();
 }
 
 
 void InputController::setKeyUp(SDL_Scancode scancode)
 {
-	keyUpDownStates[scancode] = KeyState::UP;
+	m_keyUpDownStates[scancode] = KeyState::UP;
 }
 
 
 void InputController::setKeyDown(SDL_Scancode scancode)
 {
-	keyUpDownStates[scancode] = KeyState::DOWN;
+	m_keyUpDownStates[scancode] = KeyState::DOWN;
 }

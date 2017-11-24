@@ -13,20 +13,20 @@ SpriteRenderer::~SpriteRenderer()
 }
 
 
-bool SpriteRenderer::loadImage(std::string path)
+bool SpriteRenderer::loadImage(const std::string& path)
 {
 	return loadImage(path, false, 0);
 }
 
 
-bool SpriteRenderer::loadImage(std::string path, Uint32 colorKey)
+bool SpriteRenderer::loadImage(const std::string& path, Uint32 colorKey)
 {
 	return loadImage(path, true, colorKey);
 }
 
 
 
-void SpriteRenderer::setColor(Uint8 r, Uint8 g, Uint8 b)
+void SpriteRenderer::setColor(Uint8 r, Uint8 g, Uint8 b) const
 {
 	// Modulate texture color
 	if (m_texture != nullptr) {
@@ -35,7 +35,7 @@ void SpriteRenderer::setColor(Uint8 r, Uint8 g, Uint8 b)
 }
 
 
-void SpriteRenderer::setBlendMode(SDL_BlendMode blendMode)
+void SpriteRenderer::setBlendMode(SDL_BlendMode blendMode) const
 {
 	// Set blending function
 	if (m_texture != nullptr) {
@@ -44,7 +44,7 @@ void SpriteRenderer::setBlendMode(SDL_BlendMode blendMode)
 }
 
 
-void SpriteRenderer::setAlpha(Uint8 alpha)
+void SpriteRenderer::setAlpha(Uint8 alpha) const
 {
 	// Modulate texture alpha
 	if (m_texture != nullptr) {
@@ -53,7 +53,7 @@ void SpriteRenderer::setAlpha(Uint8 alpha)
 }
 
 
-bool SpriteRenderer::loadImage(std::string path, bool shouldColorKey, Uint32 colorKey)
+bool SpriteRenderer::loadImage(const std::string& path, bool shouldColorKey, Uint32 colorKey)
 {
 	// Get rid of previous texture
 	free();

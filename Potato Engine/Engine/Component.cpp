@@ -10,7 +10,7 @@ int Component::s_nextId = 0;
 // TESTING END
 
 Component::Component()
-	: m_isActive(true), type(ComponentType::UNDEFINED)
+	: m_isActive(true), m_type(ComponentType::UNDEFINED)
 {
 	// TESTING START
 	m_id = s_nextId++;
@@ -27,6 +27,12 @@ Component::~Component()
 }
 
 
+const Reference<GameObject>& Component::gameObject() const
+{
+	return m_gameObject;
+}
+
+
 Reference<GameObject>& Component::gameObject()
 {
 	return m_gameObject;
@@ -39,7 +45,7 @@ void Component::setActive(bool activeState)
 }
 
 
-bool Component::isActive()
+bool Component::isActive() const
 {
 	return m_isActive;
 }

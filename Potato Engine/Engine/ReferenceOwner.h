@@ -8,7 +8,7 @@
 #include "ReferenceBase.h"
 
 
-template <typename T>
+template<typename T>
 class ReferenceOwner final
 	: public Reference<T>
 {
@@ -18,22 +18,22 @@ public:
 	~ReferenceOwner();
 	ReferenceOwner(const ReferenceOwner& source) = delete;
 	ReferenceOwner(ReferenceOwner&& source);
-	template <typename U>
+	template<typename U>
 	ReferenceOwner(ReferenceOwner<U>&& source);
 	ReferenceOwner& operator=(const ReferenceOwner& source) = delete;
 	ReferenceOwner& operator=(ReferenceOwner&& source);
 
 	int getRefCount() const;
 	Reference<T> getReference() const;
-	template <typename U>
+	template<typename U>
 	Reference<U> getStaticCastedReference() const;
-	template <typename U>
+	template<typename U>
 	Reference<U> getDynamicCastedReference() const;
 	void deleteReferences();
 };
 
 
-template <typename T>
+template<typename T>
 ReferenceOwner<T>::ReferenceOwner()
 	: Reference<T>()
 {
@@ -41,7 +41,7 @@ ReferenceOwner<T>::ReferenceOwner()
 }
 
 
-template <typename T>
+template<typename T>
 ReferenceOwner<T>::ReferenceOwner(T* dataPtr)
 	: Reference<T>(new std::list<ReferenceBase*>(), static_cast<void*>(dataPtr))
 {
@@ -49,7 +49,7 @@ ReferenceOwner<T>::ReferenceOwner(T* dataPtr)
 }
 
 
-template <typename T>
+template<typename T>
 ReferenceOwner<T>::~ReferenceOwner()
 {
 	//OutputLog("DEBUG: ReferenceOwner destructor");
@@ -66,8 +66,8 @@ ReferenceOwner<T>::ReferenceOwner(ReferenceOwner && source)
 }
 
 
-template <typename T>
-template <typename U>
+template<typename T>
+template<typename U>
 ReferenceOwner<T>::ReferenceOwner(ReferenceOwner<U>&& source)
 	: Reference<T>(source.m_referencesList, source.m_dataPtr)
 {

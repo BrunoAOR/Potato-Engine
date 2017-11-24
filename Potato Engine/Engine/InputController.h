@@ -12,9 +12,9 @@ public:
 	InputController();
 	~InputController();
 
-	bool getKey(SDL_Scancode scancode);
-	bool getKeyUp(SDL_Scancode scancode);
-	bool getKeyDown(SDL_Scancode scancode);
+	bool getKey(SDL_Scancode scancode) const;
+	bool getKeyUp(SDL_Scancode scancode) const;
+	bool getKeyDown(SDL_Scancode scancode) const;
 
 	void clearStates();
 	void setKeyUp(SDL_Scancode scancode);
@@ -26,8 +26,8 @@ private:
 		DOWN
 	};
 
-	const Uint8* currentKeyStates;
-	std::map<SDL_Scancode, KeyState> keyUpDownStates;
+	const Uint8* m_currentKeyStates = 0;
+	std::map<SDL_Scancode, KeyState> m_keyUpDownStates;
 };
 
 

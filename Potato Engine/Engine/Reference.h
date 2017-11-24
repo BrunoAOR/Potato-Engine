@@ -5,30 +5,32 @@
 #include "ReferenceBase.h"
 
 
-template <typename T>
+template<typename T>
 class Reference
 	: public ReferenceBase
 {
-	template <typename U>
+	template<typename U>
 	friend class Reference;
-	template <typename U>
+	template<typename U>
 	friend class ReferenceOwner;
 
 public:
 	Reference();
 	virtual ~Reference();
 	Reference(const Reference& source);
-	template <typename U>
+	template<typename U>
 	Reference(const Reference<U>& source);
 	Reference& operator=(const Reference& source);
 
-	template <typename U>
+	template<typename U>
 	Reference<U> static_reference_cast() const;
-	template <typename U>
+	template<typename U>
 	Reference<U> dynamic_reference_cast() const;
 
 	T* get();
+	const T& operator*() const;
 	T& operator*();
+	const T* operator->() const;
 	T* operator->();
 
 private:
@@ -124,11 +126,24 @@ T* Reference<T>::get()
 	return static_cast<T*>(m_dataPtr);
 }
 
+template<typename T>
+const T& Reference<T>::operator*() const
+{
+	return *(static_cast<T*>(m_dataPtr));
+}
+
 
 template<typename T>
 T& Reference<T>::operator*()
 {
 	return *(static_cast<T*>(m_dataPtr));
+}
+
+
+template<typename T>
+const T* Reference<T>::operator->() const
+{
+	return static_cast<T*>(m_dataPtr);
 }
 
 

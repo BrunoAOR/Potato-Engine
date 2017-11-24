@@ -18,7 +18,7 @@ private:
 	BehavioursManager();
 
 	// Inherited via ComponentManager
-	virtual ComponentType managedComponentType() override;
+	virtual ComponentType managedComponentType() const override;
 	virtual void update() override;
 	virtual bool init() override;
 	virtual void close() override;

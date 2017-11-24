@@ -14,8 +14,8 @@ public:
 	// Inherited via Renderer
 	virtual void render() override;
 
-	void setClipRect(SDL_Rect rect);
-	SDL_Rect getClipRect();
+	SDL_Rect getClipRect() const;
+	void setClipRect(const SDL_Rect& rect);
 	void resetClipRect();
 
 private:

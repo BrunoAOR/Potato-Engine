@@ -42,19 +42,19 @@ public:
 	Vector2 worldToLocalScale(const Vector2& worldScale) const;
 
 	// Hierarchy related
-	Reference<Transform> getParent();
+	Reference<Transform> getParent() const;
 	bool setParent(Reference<Transform> parent);
 	void removeParent();
 
 private:
 	bool addChild(Transform* childTransform);
 	bool removeChild(Transform* childTransform);
-	bool isTransformInChildrenHierarchy(Transform* transform);
+	bool isTransformInChildrenHierarchy(Transform* transform) const;
 
 	void updateLocalFields();
 	void updateWorldFields();
-	void updateChildrenLocalFields();
-	void updateChildrenWorldFields();
+	void updateChildrenLocalFields() const;
+	void updateChildrenWorldFields() const;
 
 	// Hiding inherited members from Component
 	void setActive(bool activeState);
@@ -69,8 +69,8 @@ private:
 	Vector2 m_worldScale;
 
 	// Hierarchy related
-	Transform* m_parentTransform;
-	Reference<Transform> m_parentWeakPtr;
+	Transform* m_parentTransform = nullptr;
+	Reference<Transform> m_parentRef;
 	std::vector<Transform*> m_children;
 };
 

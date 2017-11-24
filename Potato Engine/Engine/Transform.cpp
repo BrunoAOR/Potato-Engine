@@ -14,9 +14,8 @@ Transform::Transform()
 	, m_worldPosition(Vector2(0, 0))
 	, m_worldRotation(0)
 	, m_worldScale(Vector2(1, 1))
-	, m_parentTransform(nullptr)
 {
-	type = ComponentType::Transform;
+	m_type = ComponentType::Transform;
 }
 
 
@@ -277,9 +276,9 @@ Vector2 Transform::worldToLocalScale(const Vector2 & worldScale) const
 }
 
 
-Reference<Transform> Transform::getParent()
+Reference<Transform> Transform::getParent() const
 {
-	return m_parentWeakPtr;
+	return m_parentRef;
 }
 
 
@@ -315,7 +314,7 @@ bool Transform::setParent(Reference<Transform> parent)
 	{
 		// And then set the m_parent variable
 		m_parentTransform = newParentTransform;
-		m_parentWeakPtr = parent;
+		m_parentRef = parent;
 		updateLocalFields();
 		return true;
 	}
@@ -334,7 +333,7 @@ void Transform::removeParent()
 	{
 		m_parentTransform->removeChild(this);
 		m_parentTransform = nullptr;
-		m_parentWeakPtr.reset();
+		m_parentRef.reset();
 	}
 	updateLocalFields();
 }
@@ -364,7 +363,7 @@ bool Transform::removeChild(Transform * childTransform)
 }
 
 
-bool Transform::isTransformInChildrenHierarchy(Transform* transform)
+bool Transform::isTransformInChildrenHierarchy(Transform* transform) const
 {
 	for (auto childTransform : m_children)
 	{
@@ -394,7 +393,7 @@ void Transform::updateWorldFields()
 }
 
 
-void Transform::updateChildrenLocalFields()
+void Transform::updateChildrenLocalFields() const
 {
 	for (Transform* childTransform : m_children)
 	{
@@ -404,7 +403,7 @@ void Transform::updateChildrenLocalFields()
 }
 
 
-void Transform::updateChildrenWorldFields()
+void Transform::updateChildrenWorldFields() const
 {
 	for (Transform* childTransform : m_children)
 	{

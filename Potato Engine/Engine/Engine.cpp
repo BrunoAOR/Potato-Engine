@@ -43,7 +43,7 @@ Engine::~Engine()
 }
 
 
-bool Engine::init()
+bool Engine::init() const
 {
 	// Initialization flag
 	bool success = true;
@@ -58,7 +58,7 @@ bool Engine::init()
 }
 
 
-void Engine::handleEvents(bool& shouldQuit)
+void Engine::handleEvents(bool& shouldQuit) const
 {
 	// Event handler
 	SDL_Event e;
@@ -85,7 +85,7 @@ void Engine::handleEvents(bool& shouldQuit)
 }
 
 
-void Engine::loop()
+void Engine::loop() const
 {
 	// Main loop flag
 	bool quit = false;
@@ -106,7 +106,7 @@ void Engine::loop()
 }
 
 
-void Engine::close()
+void Engine::close() const
 {
 	// Delete all ComponentManagers
 	componentsManager->close();
@@ -122,7 +122,7 @@ void Engine::close()
 }
 
 
-bool Engine::initSDL()
+bool Engine::initSDL() const
 {
 	// Initialization flag
 	bool success = true;
@@ -159,7 +159,7 @@ bool Engine::initSDL()
 }
 
 
-bool Engine::initEngine()
+bool Engine::initEngine() const
 {
 	// Initialization flag
 	bool success = true;

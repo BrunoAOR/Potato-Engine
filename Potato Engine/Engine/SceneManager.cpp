@@ -16,7 +16,7 @@ SceneManager::~SceneManager()
 }
 
 
-bool SceneManager::hasActiveScene()
+bool SceneManager::hasActiveScene() const
 {
 	return m_activeScene != nullptr;
 }
@@ -72,7 +72,7 @@ void SceneManager::doLoadScene()
 }
 
 
-void SceneManager::unloadScene(Scene* sceneToUnload)
+void SceneManager::unloadScene(Scene* sceneToUnload) const
 {
 	if (sceneToUnload != nullptr)
 	{

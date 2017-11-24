@@ -21,7 +21,7 @@ CollidersManager::~CollidersManager()
 }
 
 
-ComponentType CollidersManager::managedComponentType()
+ComponentType CollidersManager::managedComponentType() const
 {
 	return ComponentType::Collider;
 }

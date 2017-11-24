@@ -1,7 +1,7 @@
 #ifndef H_PREFABS_FACTORY
 #define H_PREFABS_FACTORY
 
-template <typename T>
+template<typename T>
 class Reference;
 class GameObject;
 class Prefab;
@@ -9,7 +9,7 @@ class Prefab;
 class PrefabsFactory final
 {
 public:
-	template <typename T>
+	template<typename T>
 	static Reference<GameObject> instantiate();
 
 private:

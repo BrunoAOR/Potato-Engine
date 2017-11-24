@@ -18,8 +18,8 @@ public:
 	virtual void render() = 0;
 
 	// Get dimensions
-	int getWidth();
-	int getHeight();
+	int getWidth() const;
+	int getHeight() const;
 
 	// Pivots
 	Vector2 getPositionPivot() const;
@@ -33,27 +33,27 @@ public:
 
 	void setAllPivots(const Vector2& pivot);
 
-	std::string getRenderLayer();
+	const std::string& getRenderLayer() const;
 	bool setRenderLayer(const std::string& drawLayer);
-	int getZIndex();
+	int getZIndex() const;
 	void setZIndex(int zIndex);
 
 protected:
 	// Renders texture at given point
-	void renderMain(SDL_Rect* clip = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	void renderMain(SDL_Rect* clip = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 
 	void free();
 
 	// The renderer associated with this texture
-	SDL_Renderer* m_renderer;
-	RenderersManager* m_renderersManager;
+	SDL_Renderer* m_renderer = nullptr;
+	RenderersManager* m_renderersManager = nullptr;
 
 	// The actual hardware texture
-	SDL_Texture* m_texture;
+	SDL_Texture* m_texture = nullptr;
 
 	// Image dimensions
-	int m_width;
-	int m_height;
+	int m_width = 0;
+	int m_height = 0;
 
 private:
 	// Pivots

@@ -124,7 +124,7 @@
     <ClCompile Include="Engine\ComponentManager.cpp" />
     <ClCompile Include="Engine\ComponentsManager.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="Engine\EngineUtils.cpp" />
+    <ClCompile Include="Engine\engineUtils.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectsManager.cpp" />
     <ClCompile Include="Engine\globals.cpp" />
@@ -157,7 +157,7 @@
     <ClInclude Include="Engine\ComponentsManager.h" />
     <ClInclude Include="Engine\ComponentType.h" />
     <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="Engine\EngineUtils.h" />
+    <ClInclude Include="Engine\engineUtils.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectsManager.h" />
     <ClInclude Include="Engine\globals.h" />

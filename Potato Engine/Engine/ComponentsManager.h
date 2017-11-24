@@ -17,20 +17,20 @@ public:
 	bool init();
 	void close();
 
-	void update();
+	void update() const;
 
-	template <class T>
-	ReferenceOwner<T> createNew(Reference<GameObject>& goRef);
+	template<typename T>
+	ReferenceOwner<T> createNew(Reference<GameObject>& goRef) const;
 
 private:
-	bool sendToManager(Reference<Component> component);
+	bool sendToManager(Reference<Component> component) const;
 
-	std::vector<ComponentManager*> componentManagers;
+	std::vector<ComponentManager*> m_componentManagers;
 };
 
 
-template<class T>
-ReferenceOwner<T> ComponentsManager::createNew(Reference<GameObject>& goRef)
+template<typename T>
+ReferenceOwner<T> ComponentsManager::createNew(Reference<GameObject>& goRef) const
 {
 	if (!std::is_base_of<Component, T>::value || std::is_abstract<T>::value)
 	{

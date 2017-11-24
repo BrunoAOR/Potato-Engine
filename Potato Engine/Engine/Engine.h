@@ -14,10 +14,10 @@ public:
 	Engine();
 	~Engine();
 
-	bool init();
-	void handleEvents(bool& shouldQuit);
-	void loop();
-	void close();
+	bool init() const;
+	void handleEvents(bool& shouldQuit) const;
+	void loop() const;
+	void close() const;
 
 	TimeController* time = nullptr;
 	InputController* input = nullptr;
@@ -26,8 +26,8 @@ public:
 	ComponentsManager* componentsManager = nullptr;
 
 private:
-	bool initSDL();
-	bool initEngine();
+	bool initSDL() const;
+	bool initEngine() const;
 };
 
 extern Engine* engine;

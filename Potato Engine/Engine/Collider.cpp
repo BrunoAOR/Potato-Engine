@@ -9,7 +9,7 @@
 
 Collider::Collider() : offset(0, 0), isStatic(false), isTrigger(false)
 {
-	type = ComponentType::Collider;
+	m_type = ComponentType::Collider;
 }
 
 
@@ -18,7 +18,7 @@ Collider::~Collider()
 }
 
 
-Vector2 Collider::getLocalPosition()
+Vector2 Collider::getLocalPosition() const
 {
 	auto transform = gameObject()->transform;
 	Vector2 localPos = transform->getLocalPosition() + offset;
@@ -26,7 +26,7 @@ Vector2 Collider::getLocalPosition()
 }
 
 
-Vector2 Collider::getWorldPosition()
+Vector2 Collider::getWorldPosition() const
 {
 	auto transform = gameObject()->transform;
 	Vector2 worldPos = transform->getLocalPosition() + offset;
@@ -35,13 +35,13 @@ Vector2 Collider::getWorldPosition()
 }
 
 
-float Collider::getWorldRotation()
+float Collider::getWorldRotation() const
 {
 	return gameObject()->transform->getWorldRotation();
 }
 
 
-void Collider::onCollision(CollisionInfo info)
+void Collider::onCollision(CollisionInfo info) const
 {
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (auto behaviourRef : behaviours)
@@ -54,7 +54,7 @@ void Collider::onCollision(CollisionInfo info)
 }
 
 
-void Collider::onTriggerEnter(Reference<Collider> other)
+void Collider::onTriggerEnter(Reference<Collider> other) const
 {
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (auto behaviourRef : behaviours)
@@ -67,7 +67,7 @@ void Collider::onTriggerEnter(Reference<Collider> other)
 }
 
 
-void Collider::onTriggerStay(Reference<Collider> other)
+void Collider::onTriggerStay(Reference<Collider> other) const
 {
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (auto behaviourRef : behaviours)
@@ -80,7 +80,7 @@ void Collider::onTriggerStay(Reference<Collider> other)
 }
 
 
-void Collider::onTriggerExit(Reference<Collider> other)
+void Collider::onTriggerExit(Reference<Collider> other) const
 {
 	auto behaviours = gameObject()->getComponents<Behaviour>();
 	for (auto behaviourRef : behaviours)

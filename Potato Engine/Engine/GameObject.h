@@ -24,9 +24,9 @@ public:
 	Reference<T> addComponent();
 	void removeComponent(const Reference<Component>& component);
 	template<typename T>
-	Reference<T> getComponent();
+	Reference<T> getComponent() const;
 	template<typename T>
-	std::vector<Reference<T>> getComponents();
+	std::vector<Reference<T>> getComponents() const;
 
 	// On/Off switch
 	void setActive(bool activeState);
@@ -92,7 +92,7 @@ Reference<T> GameObject::addComponent()
 
 
 template<typename T>
-Reference<T> GameObject::getComponent()
+Reference<T> GameObject::getComponent() const
 {
 	if (!std::is_base_of<Component, T>::value)
 	{
@@ -100,7 +100,7 @@ Reference<T> GameObject::getComponent()
 	}
 	else
 	{
-		for (ReferenceOwner<Component>& component : m_components)
+		for (const ReferenceOwner<Component>& component : m_components)
 		{
 			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
 			{
@@ -113,7 +113,7 @@ Reference<T> GameObject::getComponent()
 
 
 template<typename T>
-inline std::vector<Reference<T>> GameObject::getComponents()
+inline std::vector<Reference<T>> GameObject::getComponents() const
 {
 	std::vector<Reference<T>> referencesVector;
 	if (!std::is_base_of<Component, T>::value)
@@ -122,7 +122,7 @@ inline std::vector<Reference<T>> GameObject::getComponents()
 	}
 	else
 	{
-		for (ReferenceOwner<Component>& component : m_components)
+		for (const ReferenceOwner<Component>& component : m_components)
 		{
 			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
 			{

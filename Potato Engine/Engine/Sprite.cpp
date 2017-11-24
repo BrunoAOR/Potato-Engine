@@ -25,16 +25,16 @@ void Sprite::render()
 }
 
 
-void Sprite::setClipRect(SDL_Rect rect)
+SDL_Rect Sprite::getClipRect() const
 {
-	m_clipRect = rect;
-	m_hasClipRect = true;
+	return m_clipRect;
 }
 
 
-SDL_Rect Sprite::getClipRect()
+void Sprite::setClipRect(const SDL_Rect& rect)
 {
-	return m_clipRect;
+	m_clipRect = rect;
+	m_hasClipRect = true;
 }
 
 

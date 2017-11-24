@@ -13,8 +13,6 @@
 
 
 RenderersManager::RenderersManager()
-	: m_window(nullptr)
-	, m_renderer(nullptr)
 {
 }
 
@@ -52,12 +50,6 @@ void RenderersManager::markLayerAsDirty(const std::string & layerName)
 	{
 		m_dirtyFlags[layerName] = true;
 	}
-}
-
-
-SDL_Renderer * RenderersManager::getRenderer()
-{
-	return m_renderer;
 }
 
 
@@ -110,7 +102,7 @@ bool RenderersManager::unsubscribeComponent(Reference<Component>& component)
 }
 
 
-ComponentType RenderersManager::managedComponentType()
+ComponentType RenderersManager::managedComponentType() const
 {
 	return ComponentType::Renderer;
 }
@@ -229,7 +221,7 @@ void RenderersManager::refreshRenderers()
 }
 
 
-bool RenderersManager::validateLayerName(const std::string layerName)
+bool RenderersManager::validateLayerName(const std::string& layerName) const
 {
 	for (const std::string& name : m_renderLayers)
 	{

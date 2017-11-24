@@ -1,7 +1,7 @@
 #ifndef H_PREFAB
 #define H_PREFAB
 
-template <typename T>
+template<typename T>
 class Reference;
 class GameObject;
 

@@ -4,15 +4,15 @@
 #include "Collider.h"
 
 
-bool TriggerCollisionCache::cache(CollidersPair collPair)
+bool TriggerCollisionCache::cache(const CollidersPair& collPair)
 {
-	if (indexOf(registeredCollPairs, collPair) != -1)
+	if (indexOf(m_registeredCollPairs, collPair) != -1)
 	{
 		return false;
 	}
 
-	registeredCollPairs.push_back(collPair);
-	return (indexOf(collPairs, collPair) == -1);
+	m_registeredCollPairs.push_back(collPair);
+	return (indexOf(m_collPairs, collPair) == -1);
 }
 
 
@@ -21,10 +21,10 @@ void TriggerCollisionCache::refresh()
 	// We'll go through all the collPairs
 	// If a pair is found in collPairs, but not in registeredCollPairs, 
 	// then that pair is no longer in collision, so OnTriggerExit should be called for both Colliders
-	for (unsigned int mainIndex = 0; mainIndex < collPairs.size(); ++mainIndex)
+	for (unsigned int mainIndex = 0; mainIndex < m_collPairs.size(); ++mainIndex)
 	{
-		CollidersPair pair = collPairs[mainIndex];
-		int regIndex = indexOf(registeredCollPairs, pair);
+		CollidersPair pair = m_collPairs[mainIndex];
+		int regIndex = indexOf(m_registeredCollPairs, pair);
 		if (regIndex == -1)
 		{
 			auto coll1 = pair.first;
@@ -37,8 +37,8 @@ void TriggerCollisionCache::refresh()
 		}
 	}
 	// Now we clear the collPairs and swap with registeredCollPairs to update the list
-	collPairs.clear();
-	collPairs.swap(registeredCollPairs);
+	m_collPairs.clear();
+	m_collPairs.swap(m_registeredCollPairs);
 }
 
 

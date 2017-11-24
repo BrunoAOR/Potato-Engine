@@ -5,14 +5,14 @@
 class Vector2 final
 {
 	friend Vector2 operator- (const Vector2& v2);
-	friend Vector2 operator+ (Vector2 lhs, const Vector2& rhs);
-	friend Vector2 operator- (Vector2 lhs, const Vector2& rhs);
+	friend Vector2 operator+ (const Vector2& lhs, const Vector2& rhs);
+	friend Vector2 operator- (const Vector2& lhs, const Vector2& rhs);
 	friend Vector2 operator* (float num, const Vector2& v2);
 	friend Vector2 operator/ (float num, const Vector2& v2);
-	friend Vector2 operator* (Vector2 v2, float num);
-	friend Vector2 operator/ (Vector2 v2, float num);
-	friend bool operator== (const Vector2& v1, const Vector2& v2);
-	friend bool operator!= (const Vector2& v1, const Vector2& v2);
+	friend Vector2 operator* (const Vector2& v2, float num);
+	friend Vector2 operator/ (const Vector2& v2, float num);
+	friend bool operator== (const Vector2& lhs, const Vector2& rhs);
+	friend bool operator!= (const Vector2& lhs, const Vector2& rhs);
 
 public:
 	Vector2();

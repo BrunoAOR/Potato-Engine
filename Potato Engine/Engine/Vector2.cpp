@@ -76,7 +76,7 @@ void Vector2::rotateCCWRadians(float radians)
 }
 
 
-Vector2 & Vector2::operator+=(const Vector2 & rhs)
+Vector2& Vector2::operator+=(const Vector2 & rhs)
 {
 	this->x += rhs.x;
 	this->y += rhs.y;
@@ -84,7 +84,7 @@ Vector2 & Vector2::operator+=(const Vector2 & rhs)
 }
 
 
-Vector2 & Vector2::operator-=(const Vector2 & rhs)
+Vector2& Vector2::operator-=(const Vector2 & rhs)
 {
 	this->x -= x;
 	this->y -= y;
@@ -92,7 +92,7 @@ Vector2 & Vector2::operator-=(const Vector2 & rhs)
 }
 
 
-Vector2 & Vector2::operator*=(float num)
+Vector2& Vector2::operator*=(float num)
 {
 	this->x *= num;
 	this->y *= num;
@@ -100,7 +100,7 @@ Vector2 & Vector2::operator*=(float num)
 }
 
 
-Vector2 & Vector2::operator/=(float num)
+Vector2& Vector2::operator/=(float num)
 {
 	this->x /= num;
 	this->y /= num;
@@ -126,13 +126,13 @@ Vector2 operator-(const Vector2 & v2)
 }
 
 
-Vector2 operator+(Vector2 lhs, const Vector2 & rhs)
+Vector2 operator+(const Vector2& lhs, const Vector2 & rhs)
 {
 	return Vector2(lhs.x + rhs.x, lhs.y + rhs.y);
 }
 
 
-Vector2 operator-(Vector2 lhs, const Vector2 & rhs)
+Vector2 operator-(const Vector2& lhs, const Vector2 & rhs)
 {
 	return Vector2(lhs.x - rhs.x, lhs.y - rhs.y);
 }
@@ -150,25 +150,25 @@ Vector2 operator/(float num, const Vector2 & v2)
 }
 
 
-Vector2 operator*(Vector2 v2, float num)
+Vector2 operator*(const Vector2& v2, float num)
 {
 	return operator*(num, v2);
 }
 
 
-Vector2 operator/(Vector2 v2, float num)
+Vector2 operator/(const Vector2& v2, float num)
 {
 	return operator/(num, v2);
 }
 
 
-bool operator==(const Vector2 & v1, const Vector2 & v2)
+bool operator==(const Vector2 & lhs, const Vector2 & rhs)
 {
-	return (v1.x == v2.x && v1.y == v2.y);
+	return (lhs.x == rhs.x && lhs.y == rhs.y);
 }
 
 
-bool operator!=(const Vector2 & v1, const Vector2 & v2)
+bool operator!=(const Vector2 & lhs, const Vector2 & rhs)
 {
-	return !(v1 == v2);
+	return !(lhs == rhs);
 }

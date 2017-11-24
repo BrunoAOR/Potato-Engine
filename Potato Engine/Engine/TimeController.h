@@ -9,8 +9,8 @@ class TimeController final
 public:
 	TimeController();
 	~TimeController();
-	Uint32 time();
-	Uint32 deltaTime();
+	Uint32 time() const;
+	Uint32 deltaTime() const;
 
 	void updateTime();
 
