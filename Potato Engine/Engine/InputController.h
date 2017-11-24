@@ -2,8 +2,8 @@
 #define H_INPUT_CONTROLLER
 
 #include <map>
-#include "../SDL2/include/SDL_stdinc.h"
-#include "../SDL2/include/SDL_scancode.h"
+#include "SDL2/include/SDL_stdinc.h"
+#include "SDL2/include/SDL_scancode.h"
 
 
 class InputController final

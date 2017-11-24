@@ -1,7 +1,7 @@
 #include "TimeController.h"
 
 #include "Time.h"
-#include "../SDL2/include/SDL_timer.h"
+#include "SDL2/include/SDL_timer.h"
 
 
 TimeController::TimeController()

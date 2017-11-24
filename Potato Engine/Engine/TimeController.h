@@ -1,7 +1,7 @@
 #ifndef H_TIME_CONTROLLER
 #define H_TIME_CONTROLLER
 
-#include "../SDL2/include/SDL_stdinc.h"
+#include "SDL2/include/SDL_stdinc.h"
 
 
 class TimeController final

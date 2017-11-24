@@ -1,11 +1,11 @@
 #include "Engine.h"
 
-#pragma comment( lib, "SDL2/libx86/SDL2.lib" )
-#pragma comment( lib, "SDL2_image/libx86/SDL2_image.lib")
-#pragma comment( lib, "SDL2_mixer/libx86/SDL2_mixer.lib")
-#include "../SDL2/include/SDL.h"
-#include "../SDL2_image/include/SDL_image.h"
-#include "../SDL2_mixer/include/SDL_mixer.h"
+#pragma comment( lib, "Engine/SDL2/libx86/SDL2.lib" )
+#pragma comment( lib, "Engine/SDL2_image/libx86/SDL2_image.lib")
+#pragma comment( lib, "Engine/SDL2_mixer/libx86/SDL2_mixer.lib")
+#include "SDL2/include/SDL.h"
+#include "SDL2_image/include/SDL_image.h"
+#include "SDL2_mixer/include/SDL_mixer.h"
 #include "globals.h"
 #include "gameConfig.h"
 #include "TimeController.h"

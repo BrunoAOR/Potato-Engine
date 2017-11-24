@@ -1,7 +1,7 @@
 #include "RenderersManager.h"
 
 #include <algorithm>
-#include "../SDL2_image/include/SDL_image.h"
+#include "SDL2_image/include/SDL_image.h"
 #include "gameConfig.h"
 #include "globals.h"
 #include "EngineUtils.h"

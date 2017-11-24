@@ -1,6 +1,6 @@
 #include "InputController.h"
 
-#include "../SDL2/include/SDL_keyboard.h"
+#include "SDL2/include/SDL_keyboard.h"
 
 
 InputController::InputController()

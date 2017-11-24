@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <list>
-#include "../SDL2/include/SDL.h"
+#include "SDL2/include/SDL.h"
 #include "ComponentManager.h"
 #include "Reference.h"
 class Component;

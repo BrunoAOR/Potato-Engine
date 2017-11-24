@@ -1,7 +1,7 @@
 #ifndef H_RENDERER
 #define H_RENDERER
 
-#include "../SDL2/include/SDL_render.h"
+#include "SDL2/include/SDL_render.h"
 #include <string>
 #include "Component.h"
 #include "Vector2.h"

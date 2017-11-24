@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "Engine.h"
 #include "globals.h"
-#include "../SDL2/include/SDL_main.h"
-#pragma comment( lib, "SDL2/libx86/SDL2main.lib" )
+#include "SDL2/include/SDL_main.h"
+#pragma comment( lib, "Engine/SDL2/libx86/SDL2main.lib" )
 
 
 int main(int argc, char* args[])

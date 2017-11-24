@@ -1,7 +1,7 @@
 #ifndef H_API
 #define H_API
 
-#include "../SDL2/include/SDL_scancode.h"
+#include "SDL2/include/SDL_scancode.h"
 
 
 namespace Scenes
