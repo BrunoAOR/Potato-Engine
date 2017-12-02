@@ -130,6 +130,7 @@
     <ClCompile Include="Engine\GameObjectsManager.cpp" />
     <ClCompile Include="Engine\globals.cpp" />
     <ClCompile Include="Engine\main.cpp" />
+    <ClCompile Include="Engine\PrefabsFactory.cpp" />
     <ClCompile Include="Engine\RectangleCollider.cpp" />
     <ClCompile Include="Engine\ReferenceBase.cpp" />
     <ClCompile Include="Engine\Renderer.cpp" />

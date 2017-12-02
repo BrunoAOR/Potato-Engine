@@ -132,6 +132,7 @@
     <ClCompile Include="Engine\AudioController.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\PrefabsFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
