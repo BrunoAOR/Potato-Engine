@@ -37,6 +37,9 @@
     <Filter Include="Engine\Components\Colliders">
       <UniqueIdentifier>{93efe494-1ed1-40d7-a9ec-beaea177817d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Helpers\Audio">
+      <UniqueIdentifier>{5d6af25b-67d6-4416-bc94-042b32a7092e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp">
@@ -124,6 +127,9 @@
       <Filter>Engine\Components\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="Engine\engineUtils.cpp">
+      <Filter>Engine\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\AudioController.cpp">
       <Filter>Engine\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -235,6 +241,15 @@
     </ClInclude>
     <ClInclude Include="Engine\ColliderType.h">
       <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AudioController.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SFX.h">
+      <Filter>Engine\Helpers\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Music.h">
+      <Filter>Engine\Helpers\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

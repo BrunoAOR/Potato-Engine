@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\AudioController.cpp" />
     <ClCompile Include="Engine\API.cpp" />
     <ClCompile Include="Engine\Behaviour.cpp" />
     <ClCompile Include="Engine\BehavioursManager.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Engine\gameConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\AudioController.h" />
     <ClInclude Include="Engine\ColliderType.h" />
     <ClInclude Include="Engine\API.h" />
     <ClInclude Include="Engine\Behaviour.h" />
@@ -181,6 +183,8 @@
     <ClInclude Include="Engine\gameConfig.h" />
     <ClInclude Include="Engine\Prefab.h" />
     <ClInclude Include="Engine\PrefabsFactory.h" />
+    <ClInclude Include="Engine\Music.h" />
+    <ClInclude Include="Engine\SFX.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
