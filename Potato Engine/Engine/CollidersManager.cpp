@@ -137,11 +137,10 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl1, Circl
 
 	Vector2 pos2 = circColl2->getWorldPosition();
 
-	float penetrationDistance = circColl1->radius + circColl2->radius - Vector2::distance(pos1, pos2);
+	float penetrationDistance = circColl1->getWorldScaledRadius() + circColl2->getWorldScaledRadius() - Vector2::distance(pos1, pos2);
 
 	if (penetrationDistance > m_minPenetration)
 	{
-		//printf("Circ on Circ: contact: %f\n", penetrationDistance);
 		if (shouldResolve)
 		{
 			resolveCollision(circColl1, pos1, circColl2, pos2, penetrationDistance);
@@ -238,7 +237,6 @@ bool CollidersManager::checkAndResolveCollision(RectangleCollider* rectColl1, Re
 	}
 
 	// If we got here, we have a minOverlapLength and Direction that can be used to resolve the collision
-	//printf("Rect on Rect: contanct: %f\n", minOverlapLength);
 	if (shouldResolve)
 	{
 		resolveCollision(rectColl1, rectColl2, minOverlapLength * minOverlapDirection);
@@ -253,30 +251,37 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl, Rectan
 	// In this way, the rectColl will be axis aligned in the reference system for the circle
 	// So locally, the rectangle would be possitioned at its offset and the circle would be positioned at its localPoisiton + offset
 
+	if (circColl->gameObject()->m_id == 4 && rectColl->gameObject()->m_id == 5)
+	{
+		circColl->gameObject()->transform->setWorldScale(Vector2(1.5f, 1.5f));
+		rectColl->gameObject()->transform->setWorldScale(Vector2(0.75f, 0.75f));
+	}
+
 	// Store the circ's previous parent and then change to the rect
-	auto circTransform = circColl->gameObject()->transform;
+	Transform* circTransform = circColl->gameObject()->transform.get();
 	auto originalCircParent = circTransform->getParent();
 	circTransform->setParent(rectColl->gameObject()->transform);
 
 	// circColl
 	Vector2 localCircPos = circColl->getLocalPosition();
 
-	// rectColl
+	// rectColl: Get the unscaledoffset because the calculations are being performed in the rectGO coordinate space
 	Vector2 localRectPos = rectColl->offset;
 
 	Vector2 closestPointFromPointToRect = EngineUtils::closestPointOnOrientedRectFromPoint(localRectPos, rectColl->size, localCircPos);
 
 	float penetrationDistance = 0;
 	Vector2 penetrationVector;
+	// Use the unscaled rectGO size  and the localScaled circColl radius because the calculations are being performed in the rectGO coordinate space
 	if (EngineUtils::isPointInRect(localRectPos, rectColl->size, localCircPos))
 	{
 		penetrationVector = closestPointFromPointToRect - localCircPos;
-		penetrationDistance = circColl->radius + penetrationVector.getLength();
+		penetrationDistance = circColl->getLocalScaledRadius() + penetrationVector.getLength();
 	}
 	else
 	{
 		penetrationVector = localCircPos - closestPointFromPointToRect;
-		penetrationDistance = circColl->radius - penetrationVector.getLength();
+		penetrationDistance = circColl->getLocalScaledRadius() - penetrationVector.getLength();
 	}
 	penetrationVector.normalize();
 	penetrationVector *= penetrationDistance;
@@ -289,7 +294,6 @@ bool CollidersManager::checkAndResolveCollision(CircleCollider* circColl, Rectan
 
 	if (penetrationDistance > m_minPenetration)
 	{
-		//printf("Circ on Rect: contact: %f\n", penetrationDistance);
 		if (shouldResolve)
 		{
 			resolveCollision(circColl, rectColl, penetrationVector);
@@ -421,9 +425,9 @@ void CollidersManager::informCollision(Reference<Collider>& coll1, Reference<Col
 	// If non of the colliders are triggers, then the onCollision method should be called
 	if (!coll1->isTrigger && !coll2->isTrigger)
 	{
-		auto go1 = coll1->gameObject();
-		auto go2 = coll2->gameObject();
-		// Info about cool2 that will be sent to coll1
+		Reference<GameObject>& go1 = coll1->gameObject();
+		Reference<GameObject>& go2 = coll2->gameObject();
+		// Info about coll2 that will be sent to coll1
 		{
 			CollisionInfo infoForColl1;
 			infoForColl1.otherCollider = coll2;
