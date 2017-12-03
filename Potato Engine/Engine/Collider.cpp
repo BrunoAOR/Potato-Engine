@@ -5,9 +5,10 @@
 #include "Behaviour.h"
 #include "ComponentType.h"
 #include "CollisionInfo.h"
+#include "CollidersManager.h"
 
 
-Collider::Collider() : offset(0, 0), isStatic(false), isTrigger(false)
+Collider::Collider() : offset(0, 0), isStatic(false), isTrigger(false), m_collisionLayer("default"), zIndex(0)
 {
 	m_type = ComponentType::COLLIDER;
 }
@@ -53,6 +54,23 @@ Vector2 Collider::getWorldPosition() const
 float Collider::getWorldRotation() const
 {
 	return gameObject()->transform->getWorldRotation();
+}
+
+
+std::string Collider::getCollisionLayer()
+{
+	return m_collisionLayer;
+}
+
+
+bool Collider::setCollisionLayer(const std::string & newLayerName)
+{
+	if (m_collidersManager->getCollisionLayerIndex(newLayerName) != -1)
+	{
+		m_collisionLayer = newLayerName;
+		return true;
+	}
+	return false;
 }
 
 

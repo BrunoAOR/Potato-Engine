@@ -147,6 +147,7 @@
     <ClCompile Include="Engine\gameConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\CollisionSystemSetup.h" />
     <ClInclude Include="Engine\AudioController.h" />
     <ClInclude Include="Engine\ColliderType.h" />
     <ClInclude Include="Engine\API.h" />

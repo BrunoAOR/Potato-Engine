@@ -254,5 +254,8 @@
     <ClInclude Include="Engine\Music.h">
       <Filter>Engine\Helpers\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\CollisionSystemSetup.h">
+      <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
