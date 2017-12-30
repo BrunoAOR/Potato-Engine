@@ -8,8 +8,7 @@
 #include "Engine.h"
 #include "ReferenceOwner.h"
 #include "ComponentsManager.h"
-class Component;
-class Transform;
+#include "Transform.h"
 
 
 class GameObject final
@@ -27,6 +26,14 @@ public:
 	Reference<T> getComponent() const;
 	template<typename T>
 	std::vector<Reference<T>> getComponents() const;
+	template<typename T>
+	Reference<T> getComponentInChildren() const;
+	template<typename T>
+	std::vector<Reference<T>> getComponentsInChildren() const;
+	template<typename T>
+	Reference<T> getComponentInParent() const;
+	template<typename T>
+	std::vector<Reference<T>> getComponentsInParent() const;
 
 	// On/Off switch
 	void setActive(bool activeState);
@@ -102,9 +109,9 @@ Reference<T> GameObject::getComponent() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				return componentRef;
+				return component.getStaticCastedReference<T>();
 			}
 		}
 	}
@@ -113,7 +120,7 @@ Reference<T> GameObject::getComponent() const
 
 
 template<typename T>
-inline std::vector<Reference<T>> GameObject::getComponents() const
+std::vector<Reference<T>> GameObject::getComponents() const
 {
 	std::vector<Reference<T>> referencesVector;
 	if (!std::is_base_of<Component, T>::value)
@@ -124,13 +131,137 @@ inline std::vector<Reference<T>> GameObject::getComponents() const
 	{
 		for (const ReferenceOwner<Component>& component : m_components)
 		{
-			if (Reference<T> componentRef = component.getDynamicCastedReference<T>())
+			if (component.is_castable_as<T>())
 			{
-				referencesVector.push_back(componentRef);
+				referencesVector.push_back(component.getStaticCastedReference<T>());
 			}
 		}
 	}
 	return referencesVector;
+}
+
+
+template<typename T>
+Reference<T> GameObject::getComponentInChildren() const
+{
+	if (!std::is_base_of<Component, T>::value)
+	{
+		OutputLog("WARNING: Selected class of type %s is not a valid Component!", typeid(T).name());
+	}
+	else
+	{
+		for (const ReferenceOwner<Component>& component : m_components)
+		{
+			if (component.is_castable_as<T>())
+			{
+				return component.getStaticCastedReference<T>();
+			}
+		}
+
+		for (const Reference<Transform>& childTransformRef : transform->getChildren())
+		{
+			Reference<T> foundComponent = childTransformRef->gameObject()->getComponentInChildren<T>();
+			if (foundComponent)
+			{
+				return foundComponent;
+			}
+		}
+	}
+	return Reference<T>();
+}
+
+
+template<typename T>
+std::vector<Reference<T>> GameObject::getComponentsInChildren() const
+{
+	std::vector<Reference<T>> referencesVector;
+	if (!std::is_base_of<Component, T>::value)
+	{
+		OutputLog("WARNING: Selected class of type %s is not a valid component!", typeid(T).name());
+	}
+	else
+	{
+		for (const ReferenceOwner<Component>& component : m_components)
+		{
+			if (component.is_castable_as<T>())
+			{
+				referencesVector.push_back(component.getStaticCastedReference<T>());
+			}
+		}
+
+		for (const Reference<Transform>& childTransformRef : transform->getChildren())
+		{
+			std::vector<Reference<T>> foundComponents = childTransformRef->gameObject()->getComponentsInChildren<T>();
+			if (foundComponents.size() > 0)
+			{
+				referencesVector.insert(referencesVector.end(), foundComponents.begin(), foundComponents.end());
+			}
+		}
+	}
+	return referencesVector;
+}
+
+
+template<typename T>
+Reference<T> GameObject::getComponentInParent() const
+{
+	if (!std::is_base_of<Component, T>::value)
+	{
+		OutputLog("WARNING: Selected class of type %s is not a valid Component!", typeid(T).name());
+	}
+	else
+	{
+		for (const ReferenceOwner<Component>& component : m_components)
+		{
+			if (component.is_castable_as<T>())
+			{
+				return component.getStaticCastedReference<T>();
+			}
+		}
+		
+		const Reference<Transform>& parentTransform = transform->getParent();
+		if (parentTransform)
+		{
+			Reference<T> foundComponent = parentTransform->gameObject()->getComponentInParent<T>();
+			if (foundComponent)
+			{
+				return foundComponent;
+			}
+		}
+	}
+	return Reference<T>();
+}
+
+
+template<typename T>
+ std::vector<Reference<T>> GameObject::getComponentsInParent() const
+{
+	 std::vector<Reference<T>> referencesVector;
+	 if (!std::is_base_of<Component, T>::value)
+	 {
+		 OutputLog("WARNING: Selected class of type %s is not a valid component!", typeid(T).name());
+	 }
+	 else
+	 {
+		 for (const ReferenceOwner<Component>& component : m_components)
+		 {
+			 if (component.is_castable_as<T>())
+			 {
+				 referencesVector.push_back(component.getStaticCastedReference<T>());
+			 }
+		 }
+
+		 const Reference<Transform>& parentTransform = transform->getParent();
+		 if (parentTransform)
+		 {
+			 std::vector<Reference<T>> foundComponents = parentTransform->gameObject()->getComponentsInParent<T>();
+			 if (foundComponents.size() > 0)
+			 {
+				 referencesVector.insert(referencesVector.end(), foundComponents.begin(), foundComponents.end());
+			 }
+		 }
+	 }
+	 return referencesVector;
 }
 
 
