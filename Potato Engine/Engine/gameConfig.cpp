@@ -51,7 +51,7 @@ CollisionSystemSetup collisionSystemSetup()
 	// The list of collisionLayers. There is always a "default" layer that collides with everything else
 	css.layersNames = std::vector<std::string>{ "Player", "Scenario", "Enemy" };
 	// The matrix that describes whether a collider from a certain layer collides with one from another (or the same) layer
-	css.collisionMatrix.push_back(std::vector<bool>{ false,  true,  true });
+	css.collisionMatrix.push_back(std::vector<bool>{ false, true, true });
 	css.collisionMatrix.push_back(std::vector<bool>{  true, false, false });
 	css.collisionMatrix.push_back(std::vector<bool>{  true, false, false });
 	// Whether the zIndexCollisionRange is taken into account when calculating collisions within a layer (if not, collisions are calculated regardless of the zIndex)

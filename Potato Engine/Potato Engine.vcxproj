@@ -139,6 +139,7 @@
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\SpriteRenderer.cpp" />
     <ClCompile Include="Engine\SpriteSheet.cpp" />
+    <ClCompile Include="Engine\TextRenderer.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Engine\TriggerCollisionCache.cpp" />
     <ClCompile Include="Engine\Vector2.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Engine\ComponentType.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\engineUtils.h" />
+    <ClInclude Include="Engine\Font.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectsManager.h" />
     <ClInclude Include="Engine\globals.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\SpriteRenderer.h" />
     <ClInclude Include="Engine\SpriteSheet.h" />
+    <ClInclude Include="Engine\TextRenderer.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Engine\TriggerCollisionCache.h" />
     <ClInclude Include="Engine\Vector2.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="Engine\PrefabsFactory.h" />
     <ClInclude Include="Engine\Music.h" />
     <ClInclude Include="Engine\SFX.h" />
+    <ClInclude Include="Engine\PixelPosition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

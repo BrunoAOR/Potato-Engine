@@ -135,6 +135,9 @@
     <ClCompile Include="Engine\PrefabsFactory.cpp">
       <Filter>Engine\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\TextRenderer.cpp">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -256,6 +259,15 @@
     </ClInclude>
     <ClInclude Include="Engine\CollisionSystemSetup.h">
       <Filter>Engine\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Font.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextRenderer.h">
+      <Filter>Engine\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PixelPosition.h">
+      <Filter>Engine\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
