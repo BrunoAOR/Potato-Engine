@@ -191,6 +191,7 @@
     <ClInclude Include="Engine\Music.h" />
     <ClInclude Include="Engine\SFX.h" />
     <ClInclude Include="Engine\PixelPosition.h" />
+    <ClInclude Include="Engine\ResourcesManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

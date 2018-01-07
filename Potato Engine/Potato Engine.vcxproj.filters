@@ -269,5 +269,8 @@
     <ClInclude Include="Engine\PixelPosition.h">
       <Filter>Engine\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ResourcesManager.h">
+      <Filter>Engine\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
