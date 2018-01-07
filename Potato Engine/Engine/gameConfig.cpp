@@ -6,6 +6,8 @@
 #include "CollisionSystemSetup.h"
 
 
+const std::string GAME_NAME = "Potato Engine Game";
+const bool USE_VSYNC = false;
 const int SCREEN_SIZE = 2;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 224;

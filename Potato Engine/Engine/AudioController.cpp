@@ -27,7 +27,7 @@ AudioController::~AudioController()
 }
 
 
-Music AudioController::LoadMusic(const std::string& path)
+Music AudioController::loadMusic(const std::string& path)
 {
 	Mix_Music* sdlMusic = nullptr;
 	sdlMusic = Mix_LoadMUS(path.c_str());
@@ -43,7 +43,32 @@ Music AudioController::LoadMusic(const std::string& path)
 }
 
 
-SFX AudioController::LoadSFX(const std::string& path)
+bool AudioController::unloadMusic(Music& music)
+{
+	auto it = std::find(musicPtrs.begin(), musicPtrs.end(), music.m_music);
+	if (it != musicPtrs.end())
+	{
+		Mix_FreeMusic(*it);
+		musicPtrs.erase(it);
+		music.m_music = nullptr;
+		return true;
+	}
+	return false;
+}
+
+
+void AudioController::unloadAllMusic()
+{
+	stopMusic();
+	for (auto ptr : musicPtrs)
+	{
+		Mix_FreeMusic(ptr);
+	}
+	musicPtrs.clear();
+}
+
+
+SFX AudioController::loadSFX(const std::string& path)
 {
 	Mix_Chunk* sdlSfx = nullptr;
 	sdlSfx = Mix_LoadWAV(path.c_str());
@@ -59,7 +84,32 @@ SFX AudioController::LoadSFX(const std::string& path)
 }
 
 
-void AudioController::PlayMusic(const Music& music, int repetitions) const
+bool AudioController::unloadSFX(SFX& sfx)
+{
+	auto it = std::find(sfxPtrs.begin(), sfxPtrs.end(), sfx.m_sfx);
+	if (it != sfxPtrs.end())
+	{
+		Mix_FreeChunk(*it);
+		sfxPtrs.erase(it);
+		sfx.m_sfx = nullptr;
+		return true;
+	}
+	return false;
+}
+
+
+void AudioController::unloadAllSFX()
+{
+	Mix_HaltChannel(-1);
+	for (auto ptr : sfxPtrs)
+	{
+		Mix_FreeChunk(ptr);
+	}
+	sfxPtrs.clear();
+}
+
+
+void AudioController::playMusic(const Music& music, int repetitions) const
 {
 	Mix_Music* sdlMusic = music.m_music;
 	if (Mix_PlayMusic(sdlMusic, repetitions) != 0)
@@ -69,19 +119,19 @@ void AudioController::PlayMusic(const Music& music, int repetitions) const
 }
 
 
-void AudioController::PauseMusic() const
+void AudioController::pauseMusic() const
 {
 	Mix_PauseMusic();
 }
 
 
-void AudioController::UnpauseMusic() const
+void AudioController::unpauseMusic() const
 {
 	Mix_ResumeMusic();
 }
 
 
-void AudioController::StopMusic() const
+void AudioController::stopMusic() const
 {
 	Mix_HaltMusic();
 }
@@ -116,7 +166,7 @@ void AudioController::setMusicVolume(float normalizedVolume) const
 }
 
 
-void AudioController::PlaySFX(const SFX& sfx, int repetitions) const
+void AudioController::playSFX(const SFX& sfx, int repetitions) const
 {
 	Mix_Chunk* sdlSfx = sfx.m_sfx;
 	if (Mix_PlayChannel(-1, sdlSfx, repetitions) == -1)

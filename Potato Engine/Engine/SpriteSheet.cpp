@@ -26,7 +26,7 @@ void SpriteSheet::render()
 	if (m_currentClipRect != nullptr)
 	{
 		// Check if automatic animation playback is active
-		if (m_isPlaying && m_timeLimit != 0)
+		if (m_isPlaying && m_timeLimit != 0 && !m_isPaused)
 		{
 			m_elapsedTime += engine->time->deltaTime();
 			if (m_elapsedTime >= m_timeLimit)
@@ -267,15 +267,27 @@ int SpriteSheet::getCurrentAnimationFrameWidth() const
 }
 
 
-bool SpriteSheet::isPlaying()
+bool SpriteSheet::isPlaying() const
 {
 	return m_isPlaying;
 }
 
 
-bool SpriteSheet::isFinished()
+bool SpriteSheet::isLooping() const
+{
+	return m_isLooping;
+}
+
+
+bool SpriteSheet::isFinished() const
 {
 	return m_isFinished;
+}
+
+
+bool SpriteSheet::isPaused() const
+{
+	return m_isPaused;
 }
 
 
@@ -339,8 +351,29 @@ bool SpriteSheet::stopAnimation()
 		m_currentAnimationName = "";
 		m_isPlaying = false;
 		m_isLooping = false;
+		m_isPaused = false;
 		m_isFinished = true;
 		m_elapsedTime = 0;
+		return true;
+	}
+	return false;
+}
+
+bool SpriteSheet::pauseAnimation()
+{
+	if (m_isPlaying && !m_isPaused)
+	{
+		m_isPaused = true;
+		return true;
+	}
+	return false;
+}
+
+bool SpriteSheet::resumeAnimation()
+{
+	if (m_isPlaying && m_isPaused)
+	{
+		m_isPaused = false;
 		return true;
 	}
 	return false;
@@ -350,6 +383,8 @@ bool SpriteSheet::stopAnimation()
 void SpriteSheet::resetCachedFields()
 {
 	m_isFinished = true;
+	m_isLooping = false;
+	m_isPaused = false;
 	m_currentAnimation = nullptr;
 	m_currentClipRect = nullptr;
 	m_currentClipRectIndex = -1;

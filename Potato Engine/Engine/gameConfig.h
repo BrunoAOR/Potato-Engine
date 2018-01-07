@@ -6,9 +6,12 @@
 struct CollisionSystemSetup;
 
 
+extern const std::string GAME_NAME;
+extern const bool USE_VSYNC;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 extern const int SCREEN_SIZE;
+
 
 bool scenesConfig();
 bool prefabsConfig();

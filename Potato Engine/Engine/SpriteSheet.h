@@ -38,15 +38,18 @@ public:
 	int getCurrentAnimationFrameIndex() const;
 	int getCurrentAnimationFrameHeight() const;
 	int getCurrentAnimationFrameWidth() const;
-	bool isPlaying();
-	bool isFinished();
-
+	bool isPlaying() const;
+	bool isLooping() const;
+	bool isFinished() const;
+	bool isPaused() const;
 
 	// Play animations
 	bool playAnimation(const std::string& animationName, bool loop = true, int startingFrame = 0);
 	bool playAnimation(const std::string& animationName, float fps, bool loop = true, int startingFrame = 0);
 	void setAnimationSpeed(float fps);
 	bool stopAnimation();
+	bool pauseAnimation();
+	bool resumeAnimation();
 
 private:
 	void resetCachedFields();
@@ -57,10 +60,11 @@ private:
 	SDL_Rect* m_currentClipRect = nullptr;
 	int m_currentClipRectIndex;
 
-	// automatic animation playback
+	// Automatic animation playback
 	bool m_isPlaying;
 	bool m_isLooping;
 	bool m_isFinished;
+	bool m_isPaused;
 	int m_elapsedTime;
 	int m_timeLimit;
 	int m_direction;

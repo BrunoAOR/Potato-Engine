@@ -128,7 +128,7 @@ bool TextRenderer::rebuildTexture()
 {
 	if (m_fontTexture == nullptr)
 	{
-		OutputLog("ERROR: No font texture has been loaded for a TextRenderer!");
+		OutputLog("ERROR: No font texture has been loaded for a TextRenderer with text '%s'!", m_text.c_str());
 		return false;
 	}
 
@@ -189,7 +189,7 @@ bool TextRenderer::rebuildTexture()
 				{
 					lineWidth += m_font.characterWidth;
 					x += m_font.characterWidth;
-					OutputLog("INFO: Character %c could not be found in the font information!", c);
+					OutputLog("WARNING: Character %c could not be found in the font information!", c);
 				}
 				// But if the character is available, draw it to m_texture
 				else
