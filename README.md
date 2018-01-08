@@ -10,10 +10,10 @@ In this version, the structure is better organized, SDL is included within the r
 ## How to use?
 
 ### Installation
-Instructions and documentation on how to use Potato Engine will be added later on. Stay tuned.
+In order to use the Potato Engine, you may download the source files and include them to your project.
 
 ### Documentation
-Instructions and documentation on how to use Potato Engine will be added later on. Stay tuned.
+See the wiki for basic usage of the Potato Engine.
 
 ## Further information
 
