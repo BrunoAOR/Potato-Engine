@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include "Engine.h"
 #include "globals.h"
+#include "memLeaks.h"
 #include "SDL2/include/SDL_main.h"
 #pragma comment( lib, "Engine/SDL2/libx86/SDL2main.lib" )
 
 
 int main(int argc, char* args[])
 {
+	ReportMemoryLeaks();
+
 	OutputLog("INFO: Start.");
 	OutputLog("INFO: Engine will be created.");
 	engine = new Engine();
